@@ -17,10 +17,10 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.2",
     "bootstrap": "^5.1.3",
-    "react": "^18.2.0",
+    "react": "^17.0.2",
     "react-bootstrap": "^2.1.1",
     "react-credit-cards": "^0.8.3",
-    "react-dom": "^18.2.0",
+    "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
     "react-loader-spinner": "^5.3.4",
     "react-paginate": "^8.1.4",
@@ -56,10 +56,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "* 데모 웹사이트: https://noona-shoppingmall.netlify.app/",
-  "main": "test.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
