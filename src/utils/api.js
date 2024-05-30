@@ -6,7 +6,7 @@ const BACKEND_PROXY = process.env.REACT_APP_BACKEND_PROXY;
 
 const api = axios.create({
   // baseURL: LOCAL_BACKEND,
-  baseURL: BACKEND_PROXY,
+  baseURL: `${BACKEND_PROXY}/api`,
   headers: {
     "Content-Type": "application/json",
     authorization: `Bearer ${sessionStorage.getItem("token")}`,
