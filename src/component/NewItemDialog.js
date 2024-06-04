@@ -25,7 +25,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     mode === "new" ? { ...InitialFormData } : selectedProduct
   );
   const [ stock, setStock ] = useState([]);
-  const [ stockNum, setStockNum ] = useState('')
   const dispatch = useDispatch();
   const [ stockError, setStockError ] = useState(false);
   const handleClose = () => {
@@ -64,7 +63,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   };
 
   useEffect(()=>{
-    console.log(stock)
+    console.log('리랜더링')
+  },[])
+
+  useEffect(()=>{
+    console.log('sssss', stock)
   },[stock])
 
   const handleSizeChange = (value, index) => {
@@ -172,7 +175,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           </Button>
           <div className="mt-2">
             {stock.map((item, index) => (
-              <Row key={`${index}${item}`}>
+              <Row key={`${index}${item[0]}`}>
                 <Col sm={4}>
                   <Form.Select
                     onChange={(event) =>
