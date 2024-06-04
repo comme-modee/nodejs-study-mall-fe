@@ -24,9 +24,10 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [formData, setFormData] = useState(
     mode === "new" ? { ...InitialFormData } : selectedProduct
   );
-  const [stock, setStock] = useState([]);
+  const [ stock, setStock ] = useState([]);
+  const [ stockNum, setStockNum ] = useState('')
   const dispatch = useDispatch();
-  const [stockError, setStockError] = useState(false);
+  const [ stockError, setStockError ] = useState(false);
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기

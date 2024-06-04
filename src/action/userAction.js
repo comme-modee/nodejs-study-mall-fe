@@ -2,6 +2,7 @@ import api from "../utils/api";
 import * as types from "../constants/user.constants";
 import { commonUiActions } from "./commonUiAction";
 import * as commonTypes from "../constants/commonUI.constants";
+
 const loginWithToken = () => async (dispatch) => {
   try {
     dispatch({type: types.TOKEN_LOGIN_REQUEST})
@@ -12,6 +13,10 @@ const loginWithToken = () => async (dispatch) => {
     dispatch({type: types.TOKEN_LOGIN_FAIL, payload: error.error})
     dispatch(logout())
   }
+};
+
+const clearError = () => async (dispatch) => {
+  dispatch({type: types.CLEAR_ERROR});
 };
 
 const loginWithEmail = 
@@ -56,4 +61,5 @@ export const userActions = {
   logout,
   loginWithGoogle,
   registerUser,
+  clearError
 };

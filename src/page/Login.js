@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,8 +10,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
   const error = useSelector((state) => state.user.error);
 
   const loginWithEmail = (event) => {
@@ -26,6 +26,13 @@ const Login = () => {
   if (user) {
     navigate("/");
   }
+
+  useEffect(()=>{
+    return () => {
+      dispatch(userActions.clearError())
+    }
+  },[dispatch])
+
   return (
     <>
       <Container className="login-area">
