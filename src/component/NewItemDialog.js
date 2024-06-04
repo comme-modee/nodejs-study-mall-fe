@@ -30,6 +30,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
+    setShowDialog(false)
   };
 
   const handleSubmit = (event) => {
@@ -46,22 +47,37 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const handleChange = (event) => {
     //form에 데이터 넣어주기
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value, });
   };
 
   const addStock = () => {
     //재고타입 추가시 배열에 새 배열 추가
+    setStock([...stock, []]);
   };
 
   const deleteStock = (idx) => {
     //재고 삭제하기
+    const newStock = stock.filter((item, index) => index !== idx );
+    setStock(newStock);
   };
+
+  useEffect(()=>{
+    console.log(stock)
+  },[stock])
 
   const handleSizeChange = (value, index) => {
     //  재고 사이즈 변환하기
+    const newStock = [...stock];
+    newStock[index][0] = value;
+    setStock(newStock);
   };
 
   const handleStockChange = (value, index) => {
     //재고 수량 변환하기
+    const newStock = [...stock];
+    newStock[index][1] = value;
+    setStock(newStock);
   };
 
   const onHandleCategory = (event) => {
@@ -112,7 +128,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           <Form.Group as={Col} controlId="sku">
             <Form.Label>Sku</Form.Label>
             <Form.Control
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               type="string"
               placeholder="Enter Sku"
               required
@@ -155,7 +171,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
           </Button>
           <div className="mt-2">
             {stock.map((item, index) => (
-              <Row key={index}>
+              <Row key={`${index}${item}`}>
                 <Col sm={4}>
                   <Form.Select
                     onChange={(event) =>

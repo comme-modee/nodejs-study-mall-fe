@@ -19,9 +19,9 @@ const Login = () => {
     dispatch(userActions.loginWithEmail({email, password}, navigate))
   };
 
-  const handleGoogleLogin = async (googleData) => {
-    // 구글로 로그인 하기
-  };
+  // const handleGoogleLogin = async (googleData) => {
+  //   // 구글로 로그인 하기
+  // };
 
   if (user) {
     navigate("/");
