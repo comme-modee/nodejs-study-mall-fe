@@ -1,1 +1,1 @@
-/api/* http://study-mall-be.ap-southeast-2.elasticbeanstalk.com/api/:splat 200
+/api/* https://port-0-nodejs-study-mall-be-1272llwyghb5h.sel5.cloudtype.app/api/:splat 200
