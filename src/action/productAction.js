@@ -8,6 +8,7 @@ const getProductList = (query) => async (dispatch) => {
     dispatch({type:types.PRODUCT_GET_REQUEST});
     const res = await api.get('/product');
     if(res !== 200) throw new Error(res.error);
+    console.log('product data', res)
     dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data.data});
   } catch (error) {
     dispatch({type:types.PRODUCT_GET_REQUEST, payload: error.error});
