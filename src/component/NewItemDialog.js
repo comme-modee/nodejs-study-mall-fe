@@ -72,14 +72,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     setStock(newStock);
   };
 
-  useEffect(()=>{
-    console.log('리랜더링')
-  },[])
-
-  useEffect(()=>{
-    console.log('sssss', stock)
-  },[stock])
-
   const handleSizeChange = (value, index) => {
     //  재고 사이즈 변환하기
     const newStock = [...stock];
