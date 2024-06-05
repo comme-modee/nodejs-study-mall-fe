@@ -12,6 +12,7 @@ import ProductTable from "../component/ProductTable";
 
 const AdminProduct = () => {
   const navigate = useNavigate();
+  const {productList} = useSelector((state) => state.product);
   const [query, setQuery] = useSearchParams();
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
@@ -78,7 +79,7 @@ const AdminProduct = () => {
 
         <ProductTable
           header={tableHeader}
-          data=""
+          data={productList}
           deleteItem={deleteItem}
           openEditForm={openEditForm}
         />
