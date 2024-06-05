@@ -7,11 +7,10 @@ const getProductList = (query) => async (dispatch) => {
   try {
     dispatch({type:types.PRODUCT_GET_REQUEST});
     const res = await api.get('/product');
-    console.log('product data', res)
-    if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data.data});
+    console.log('product data', res)
   } catch (error) {
-    dispatch({type:types.PRODUCT_GET_REQUEST, payload: error.error});
+    dispatch({type:types.PRODUCT_GET_FAIL, payload: error.error});
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
   }
 };
