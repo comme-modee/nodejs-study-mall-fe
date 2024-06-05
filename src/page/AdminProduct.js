@@ -10,6 +10,8 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { commonUiActions } from "../action/commonUiAction";
 import ProductTable from "../component/ProductTable";
 
+console.log(productList)
+
 const AdminProduct = () => {
   const navigate = useNavigate();
   const { productList } = useSelector((state) => state.product);
@@ -36,7 +38,7 @@ const AdminProduct = () => {
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(()=>{
     dispatch(productActions.getProductList())
-    console.log(productList)
+    
   },[])
 
   useEffect(() => {
