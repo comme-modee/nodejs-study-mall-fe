@@ -12,11 +12,11 @@ import ProductTable from "../component/ProductTable";
 
 const AdminProduct = () => {
   const navigate = useNavigate();
-  const {productList} = useSelector((state) => state.product);
-  const [query, setQuery] = useSearchParams();
+  const { productList } = useSelector((state) => state.product);
+  const [ query, setQuery ] = useSearchParams();
   const dispatch = useDispatch();
-  const [showDialog, setShowDialog] = useState(false);
-  const [searchQuery, setSearchQuery] = useState({
+  const [ showDialog, setShowDialog ] = useState(false);
+  const [ searchQuery, setSearchQuery ] = useState({
     page: query.get("page") || 1,
     name: query.get("name") || "",
   }); //검색 조건들을 저장하는 객체
@@ -36,6 +36,7 @@ const AdminProduct = () => {
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(()=>{
     dispatch(productActions.getProductList())
+    console.log(productList)
   },[])
 
   useEffect(() => {
