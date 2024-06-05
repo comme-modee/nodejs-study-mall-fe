@@ -7,8 +7,8 @@ const getProductList = (query) => async (dispatch) => {
   try {
     dispatch({type:types.PRODUCT_GET_REQUEST});
     const res = await api.get('/product');
-    if(res !== 200) throw new Error(res.error);
     console.log('product data', res)
+    if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data.data});
   } catch (error) {
     dispatch({type:types.PRODUCT_GET_REQUEST, payload: error.error});
@@ -23,7 +23,7 @@ const createProduct = (formData) => async (dispatch) => {
   try {
     dispatch({type:types.PRODUCT_CREATE_REQUEST});
     const res = await api.post('/product', formData);
-    console.log('rrrrr', res)
+    console.log('createProduct', res)
     if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS});
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
