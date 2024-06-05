@@ -19,9 +19,11 @@ const getProductList = (query) => async (dispatch) => {
 const getProductDetail = (id) => async (dispatch) => {};
 
 const createProduct = (formData) => async (dispatch) => {
+  console.log(formData)
   try {
     dispatch({type:types.PRODUCT_CREATE_REQUEST});
     const res = await api.post('/product', formData);
+    console.log('rrrrr', res)
     if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS});
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
