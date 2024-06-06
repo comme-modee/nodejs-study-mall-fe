@@ -33,7 +33,6 @@ const createProduct = (formData) => async (dispatch) => {
     console.log('createProduct', res)
     if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS});
-    getProductList();
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
   } catch (error) {
     dispatch({type:types.PRODUCT_CREATE_FAIL, payload: error.error});
