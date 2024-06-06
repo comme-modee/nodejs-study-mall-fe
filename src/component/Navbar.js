@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -14,9 +14,10 @@ import { userActions } from "../action/userAction";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
+  const [ keyword, setKeyword ] = useState('');
   const { cartItemCount } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
-  const [showSearchBox, setShowSearchBox] = useState(false);
+  const [ showSearchBox, setShowSearchBox ] = useState(false);
   const menuList = [
     "여성",
     "Divided",
@@ -27,8 +28,9 @@ const Navbar = ({ user }) => {
     "Sale",
     "지속가능성",
   ];
-  let [width, setWidth] = useState(0);
+  let [ width, setWidth ] = useState(0);
   let navigate = useNavigate();
+
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
@@ -37,9 +39,15 @@ const Navbar = ({ user }) => {
       navigate(`?name=${event.target.value}`);
     }
   };
+  
   const logout = () => {
     dispatch(userActions.logout());
   };
+
+  useEffect(()=>{
+    setKeyword('')
+  },[])
+  
   return (
     <div>
       {showSearchBox && (
@@ -51,6 +59,8 @@ const Navbar = ({ user }) => {
                 type="text"
                 placeholder="제품검색"
                 onKeyPress={onCheckEnter}
+                onChange={(e) => setKeyword(e.target.value)}
+                value={keyword}
               />
             </div>
             <button
