@@ -29,7 +29,7 @@ const createProduct = (formData) => async (dispatch) => {
     const res = await api.post('/product', formData);
     if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS});
-    getProductList();
+    dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data});
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
   } catch (error) {
     dispatch({type:types.PRODUCT_CREATE_FAIL, payload: error.error});
