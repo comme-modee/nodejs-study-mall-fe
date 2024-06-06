@@ -3,7 +3,8 @@ const initialState = {
   loading: false,
   error: '',
   productList: [],
-  totalPage: 1
+  totalPage: 1,
+  selectedProduct: null
 };
 
 function productReducer(state = initialState, action) {
@@ -19,6 +20,8 @@ function productReducer(state = initialState, action) {
     case types.PRODUCT_CREATE_FAIL:
     case types.PRODUCT_GET_FAIL:
       return {...state, loading: false, error:payload}
+    case types.SET_SELECTED_PRODUCT:
+      return {...state, payload: selectedProduct}
     default:
       return state;
   }
