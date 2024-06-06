@@ -7,7 +7,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
   const [query] = useSearchParams();
   const [keyword, setKeyword] = useState(query.get(field) || "");
 
-  const onKeywordChanged = () => {
+  const onKeywordChanged = (event) => {
       setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value });
   };
   return (
