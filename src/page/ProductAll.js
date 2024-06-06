@@ -20,6 +20,9 @@ const ProductAll = () => {
   // 처음 로딩하면 상품리스트 불러오기
   useEffect(()=>{
     dispatch(productActions.getProductList({ ...searchQuery }))
+    if(query !== '') {
+      setSearchQuery({ ...searchQuery, name: query.get("name")})
+    }
   },[query])
 
 
