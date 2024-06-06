@@ -9,17 +9,11 @@ import { useSearchParams } from "react-router-dom";
 const ProductAll = () => {
   const dispatch = useDispatch();
   const [ query, setQuery ] = useSearchParams();
-  // const [ searchQuery, setSearchQuery ] = useState({
-  //   page: query.get("page") || 1,
-  //   name: query.get("name") || "",
-  // }); //검색 조건들을 저장하는 객체
-
   const { productList, totalPage } = useSelector((state) => state.product);
   const error = useSelector((state) => state.product.error);
     
   // 처음 로딩하면 상품리스트 불러오기
   useEffect(()=>{
-    // setSearchQuery({ ...searchQuery, name: query.get("name")})
     dispatch(productActions.getProductList({ name: query.get("name") }))
   },[query])
 
