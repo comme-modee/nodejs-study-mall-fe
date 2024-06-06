@@ -33,7 +33,7 @@ const createProduct = (formData) => async (dispatch) => {
     console.log('createProduct', res)
     if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS});
-    dispatch(productActions.getProductList());
+    dispatch(productActions.getProductList({page: 1, name: ''}));
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
   } catch (error) {
     dispatch({type:types.PRODUCT_CREATE_FAIL, payload: error.error});
@@ -48,7 +48,7 @@ const editProduct = (formData, id) => async (dispatch) => {
     const res = await api.put(`/product/${id}`, formData);
     if(res !== 200) throw new Error(res.error);
     dispatch({type: types.PRODUCT_EDIT_SUCCESS});
-    dispatch(productActions.getProductList());
+    dispatch(productActions.getProductList({page: 1, name: ''}));
     dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
   } catch (error) {
     dispatch({type:types.PRODUCT_EDIT_FAIL, payload: error.error});
