@@ -31,10 +31,13 @@ const createProduct = (formData) => async (dispatch) => {
     dispatch({type:types.PRODUCT_CREATE_REQUEST});
     const res = await api.post('/product', formData);
     console.log('createProduct', res)
-    if(res !== 200) throw new Error(res.error);
-    dispatch({type:types.PRODUCT_CREATE_SUCCESS});
-    dispatch(getProductList({page: 1, name: ''}));
-    dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
+    if(res.status === 200) {
+      dispatch({type:types.PRODUCT_CREATE_SUCCESS});
+      dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
+      dispatch(getProductList({page: 1, name: ''}));
+    } else if (res.status === 400) {
+      throw new Error(res.error);
+    }
   } catch (error) {
     dispatch({type:types.PRODUCT_CREATE_FAIL, payload: error.error});
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
@@ -48,10 +51,14 @@ const editProduct = (formData, id) => async (dispatch) => {
     dispatch({type: types.PRODUCT_EDIT_REQUEST})
     const res = await api.put(`/product/${id}`, formData);
     console.log(res)
-    if(res !== 200) throw new Error(res.error);
-    dispatch({type: types.PRODUCT_EDIT_SUCCESS, payload: res.data.data});
-    dispatch(getProductList({page: 1, name: ''}));
-    dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
+    if(res.status === 200) {
+      dispatch({type: types.PRODUCT_EDIT_SUCCESS, payload: res.data.data});
+      dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
+      dispatch(getProductList({page: 1, name: ''}));
+    } else if (res.status === 400) {
+      throw new Error(res.error);
+    }
+    
   } catch (error) {
     dispatch({type:types.PRODUCT_EDIT_FAIL, payload: error.error});
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
