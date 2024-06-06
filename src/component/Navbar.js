@@ -14,7 +14,6 @@ import { userActions } from "../action/userAction";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
-  const [ keyword, setKeyword ] = useState('');
   const { cartItemCount } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [ showSearchBox, setShowSearchBox ] = useState(false);
@@ -55,8 +54,6 @@ const Navbar = ({ user }) => {
                 type="text"
                 placeholder="제품검색"
                 onKeyPress={onCheckEnter}
-                onChange={(e) => setKeyword(e.target.value)}
-                value={keyword}
               />
             </div>
             <button
