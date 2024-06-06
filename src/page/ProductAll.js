@@ -15,17 +15,13 @@ const ProductAll = () => {
     dispatch(productActions.getProductList())
   },[])
 
-  useEffect(()=>{
-    console.log(productList)
-  },[productList])
-
   return (
     <Container>
       <Row>
         <Col md={3} sm={12}>
-          {productList && productList.map((item) => {
+          {productList && productList.map((item) => (
               <ProductCard title={item.name} img={item.image} price={item.price}/>
-          })}
+          ))}
         </Col>
       </Row>
     </Container>
