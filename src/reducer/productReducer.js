@@ -21,7 +21,7 @@ function productReducer(state = initialState, action) {
     case types.PRODUCT_GET_FAIL:
       return {...state, loading: false, error:payload}
     case types.SET_SELECTED_PRODUCT:
-      return {...state, payload: selectedProduct}
+      return {...state, selectedProduct: payload}
     default:
       return state;
   }
