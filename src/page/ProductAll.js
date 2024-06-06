@@ -20,7 +20,7 @@ const ProductAll = () => {
     <Container>
       <Row>
         <Col md={3} sm={12}>
-          {productList && productList.map((item) => {
+          {productList.map((item) => {
               <ProductCard title={item.name} img={item.image} price={item.price}/>
           })}
         </Col>
