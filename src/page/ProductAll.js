@@ -13,6 +13,7 @@ const ProductAll = () => {
   // 처음 로딩하면 상품리스트 불러오기
   useEffect(()=>{
     dispatch(productActions.getProductList())
+    console.log(productList)
   },[])
 
   return (
