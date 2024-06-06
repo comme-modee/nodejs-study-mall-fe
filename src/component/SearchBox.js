@@ -8,6 +8,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
   const [keyword, setKeyword] = useState(query.get(field) || "");
 
   const onKeywordChanged = (e) => {
+      console.log('key up')
       setSearchQuery({ ...searchQuery, page: 1, [field]: e.target.value });
   };
   return (
