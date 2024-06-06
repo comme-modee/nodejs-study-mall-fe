@@ -43,10 +43,6 @@ const Navbar = ({ user }) => {
   const logout = () => {
     dispatch(userActions.logout());
   };
-
-  useEffect(()=>{
-    setKeyword('')
-  },[])
   
   return (
     <div>
@@ -133,7 +129,7 @@ const Navbar = ({ user }) => {
       </div>
 
       <div className="nav-logo">
-        <Link to="/">
+        <Link to="/" onClick={setKeyword('')}>
           <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
         </Link>
       </div>
