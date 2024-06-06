@@ -23,7 +23,8 @@ const ProductAll = () => {
       setSearchQuery({ ...searchQuery, name: query.get("name")})
       }
     dispatch(productActions.getProductList({ ...searchQuery }))
-  },[query])
+    console.log(searchQuery)
+  },[query, searchQuery])
 
 
   return (
