@@ -44,6 +44,7 @@ const createProduct = (formData) => async (dispatch) => {
   }
 };
 const deleteProduct = (id) => async (dispatch) => {
+  console.log(id)
   try {
     dispatch({type: types.PRODUCT_DELETE_REQUEST})
     const res = await api.delete(`/product/${id}`);
