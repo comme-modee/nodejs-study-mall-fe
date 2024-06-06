@@ -43,9 +43,11 @@ const createProduct = (formData) => async (dispatch) => {
 const deleteProduct = (id) => async (dispatch) => {};
 
 const editProduct = (formData, id) => async (dispatch) => {
+  console.log(formData, id)
   try {
     dispatch({type: types.PRODUCT_EDIT_REQUEST})
     const res = await api.put(`/product/${id}`, formData);
+    console.log(res)
     if(res !== 200) throw new Error(res.error);
     dispatch({type: types.PRODUCT_EDIT_SUCCESS});
     dispatch(productActions.getProductList({page: 1, name: ''}));
