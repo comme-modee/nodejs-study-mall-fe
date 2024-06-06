@@ -10,7 +10,7 @@ const getProductList = (query) => async (dispatch) => {
       params: {...query}
     });
     if(res.status === 200) {
-      dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data.data});
+      dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data});
       console.log('product data', res.data.data)
     } else if (res.status === 400) {
       throw new Error('there is no data')
