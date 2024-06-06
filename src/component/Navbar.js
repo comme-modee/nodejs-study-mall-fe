@@ -48,6 +48,7 @@ const Navbar = ({ user }) => {
   useEffect(() => {
     // '/'로 이동할 때 keyword 초기화
     if (location.pathname === "/") {
+      console.log('/로 바뀜')
       setKeyword('');
     }
   }, [location]);
