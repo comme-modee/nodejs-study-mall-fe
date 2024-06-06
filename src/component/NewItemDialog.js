@@ -49,11 +49,12 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     if (mode === "new") {
       //새 상품 만들기
       dispatch(productActions.createProduct({...formData, stock: totalStock}));
-      dispatch(productActions.getProductList());
       setFormData(InitialFormData);
       setShowDialog(false);
     } else {
       // 상품 수정하기
+      dispatch(productActions.editProduct({...formData, stock: totalStock}, selectedProduct._id));
+      setShowDialog(false);
     }
   };
 
