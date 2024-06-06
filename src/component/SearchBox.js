@@ -7,10 +7,8 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
   const [query] = useSearchParams();
   const [keyword, setKeyword] = useState(query.get(field) || "");
 
-  const onCheckEnter = (event) => {
-    if (event.key === "Enter") {
-      setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value });
-    }
+  const onKeywordChanged = (e) => {
+      setSearchQuery({ ...searchQuery, page: 1, [field]: e.target.value });
   };
   return (
     <div className="search-box">
@@ -18,8 +16,8 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
       <input
         type="text"
         placeholder={placeholder}
-        onKeyPress={onCheckEnter}
-        onChange={(event) => setKeyword(event.target.value)}
+        onKeyUp={(e) => onKeywordChanged(e)}
+        onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
       />
     </div>
