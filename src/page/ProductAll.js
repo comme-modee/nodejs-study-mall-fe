@@ -24,7 +24,7 @@ const ProductAll = () => {
       }
     dispatch(productActions.getProductList({ ...searchQuery }))
     console.log(searchQuery)
-  },[query, searchQuery])
+  },[query])
 
 
   return (
