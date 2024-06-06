@@ -7,7 +7,7 @@ import {
   faSearch,
   faShoppingBag,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
@@ -18,6 +18,7 @@ const Navbar = ({ user }) => {
   const { cartItemCount } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [ showSearchBox, setShowSearchBox ] = useState(false);
+  const location = useLocation(); // 현재 경로 가져오기
   const menuList = [
     "여성",
     "Divided",
@@ -43,6 +44,13 @@ const Navbar = ({ user }) => {
   const logout = () => {
     dispatch(userActions.logout());
   };
+
+  useEffect(() => {
+    // '/'로 이동할 때 keyword 초기화
+    if (location.pathname === "/") {
+      setKeyword('');
+    }
+  }, [location]);
   
   return (
     <div>
@@ -129,7 +137,7 @@ const Navbar = ({ user }) => {
       </div>
 
       <div className="nav-logo">
-        <Link to="/" onClick={() => setKeyword('')}>
+        <Link to="/">
           <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
         </Link>
       </div>
