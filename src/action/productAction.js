@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
 const getProductList = (query) => async (dispatch) => {
-  console.log('get product in')
+  console.log('get product in', query)
   try {
     dispatch({type:types.PRODUCT_GET_REQUEST});
     const res = await api.get('/product', {
