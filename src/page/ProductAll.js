@@ -13,14 +13,17 @@ const ProductAll = () => {
   // 처음 로딩하면 상품리스트 불러오기
   useEffect(()=>{
     dispatch(productActions.getProductList())
-    console.log(productList)
   },[])
+
+  useEffect(()=>{
+    console.log(productList)
+  },[productList])
 
   return (
     <Container>
       <Row>
         <Col md={3} sm={12}>
-          {productList.map((item) => {
+          {productList && productList.map((item) => {
               <ProductCard title={item.name} img={item.image} price={item.price}/>
           })}
         </Col>
