@@ -129,7 +129,7 @@ const Navbar = ({ user }) => {
       </div>
 
       <div className="nav-logo">
-        <Link to="/" onClick={setKeyword('')}>
+        <Link to="/" onClick={() => setKeyword('')}>
           <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
         </Link>
       </div>
