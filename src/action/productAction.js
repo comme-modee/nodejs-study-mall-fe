@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
 const getProductList = (query) => async (dispatch) => {
+  console.log('get product in')
   try {
     dispatch({type:types.PRODUCT_GET_REQUEST});
     const res = await api.get('/product', {
@@ -32,7 +33,7 @@ const createProduct = (formData) => async (dispatch) => {
     console.log('createProduct', res)
     if(res !== 200) throw new Error(res.error);
     dispatch({type:types.PRODUCT_CREATE_SUCCESS});
-    dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data});
+    getProductList();
     dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
   } catch (error) {
     dispatch({type:types.PRODUCT_CREATE_FAIL, payload: error.error});
