@@ -31,6 +31,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
     setFormData(InitialFormData);
+    setStock([])
     setShowDialog(false);
   };
 
@@ -50,6 +51,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       //새 상품 만들기
       dispatch(productActions.createProduct({...formData, stock: totalStock}));
       setFormData(InitialFormData);
+      setStock([])
       setShowDialog(false);
     } else {
       // 상품 수정하기
