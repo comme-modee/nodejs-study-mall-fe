@@ -66,7 +66,7 @@ const editProduct = (formData, id) => async (dispatch) => {
   console.log(formData, id)
   try {
     dispatch({type: types.PRODUCT_EDIT_REQUEST})
-    const res = await api.post(`/product/${id}`, formData);
+    const res = await api.put(`/product/${id}`, formData);
     console.log(res)
     if(res.status === 200) {
       dispatch({type: types.PRODUCT_EDIT_SUCCESS, payload: res.data.data});
