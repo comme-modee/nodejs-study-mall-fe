@@ -52,16 +52,16 @@ const AdminProduct = () => {
 
   const deleteItem = (id) => {
     //아이템 삭제하가ㅣ
-    //dispatch(productActions.deleteProduct(id))
+    // dispatch(productActions.deleteProduct(id))
   };
 
   const openEditForm = (product) => {
     console.log('selected product', product)
     //edit모드로 설정하고
     // 아이템 수정다이얼로그 열어주기
-    setMode("edit")
-    dispatch({type: types.SET_SELECTED_PRODUCT, payload: product})
-    setShowDialog(true)
+    setMode("edit");
+    dispatch({type: types.SET_SELECTED_PRODUCT, payload: product});
+    setShowDialog(true);
   };
 
   const handleClickNewItem = () => {
@@ -103,7 +103,7 @@ const AdminProduct = () => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPage} // 총 페이지 수
-          forcePage={2} // 1페이지면 2임 여긴 한개씩 +1 해야함
+          forcePage={searchQuery.page - 1} // 1페이지면 2임 여긴 한개씩 +1 해야함
           previousLabel="<"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
