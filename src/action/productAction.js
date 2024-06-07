@@ -43,6 +43,7 @@ const createProduct = (formData) => async (dispatch) => {
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
   }
 };
+
 const deleteProduct = (id) => async (dispatch) => {
   console.log(id)
   try {
