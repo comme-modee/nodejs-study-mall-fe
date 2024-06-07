@@ -38,7 +38,7 @@ const AdminProduct = () => {
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(()=>{
     dispatch(productActions.getProductList({ ...searchQuery }))
-  },[query, showDialog])
+  },[query])
 
   useEffect(() => {
     //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
@@ -51,11 +51,12 @@ const AdminProduct = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    //아이템 삭제하기
+    //아이템 삭제하가ㅣ
     dispatch({type: productActions.deleteProduct(id)})
   };
 
   const openEditForm = (product) => {
+    console.log('selected product', product)
     //edit모드로 설정하고
     // 아이템 수정다이얼로그 열어주기
     setMode("edit")
@@ -96,12 +97,13 @@ const AdminProduct = () => {
           deleteItem={deleteItem}
           openEditForm={openEditForm}
         />
+
         <ReactPaginate
           nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={totalPage} // 총 페이지 수
-          forcePage={searchQuery.page - 1} // 1페이지면 2임 여긴 한개씩 +1 해야함
+          forcePage={2} // 1페이지면 2임 여긴 한개씩 +1 해야함
           previousLabel="<"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
