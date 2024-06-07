@@ -27,6 +27,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [ stock, setStock ] = useState([]);
   const dispatch = useDispatch();
   const [ stockError, setStockError ] = useState(false);
+
+    console.log('뉴아이템다이알로그에서: ', selectedProduct)
+
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
