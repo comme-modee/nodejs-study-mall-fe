@@ -31,6 +31,7 @@ function productReducer(state = initialState, action) {
       return {...state, loading: false, error:payload}
 
     case types.SET_SELECTED_PRODUCT:
+      console.log('리듀서에서', payload)
       return {...state, selectedProduct:payload}
       
     default:
