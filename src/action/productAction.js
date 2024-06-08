@@ -45,21 +45,21 @@ const createProduct = (formData) => async (dispatch) => {
 };
 
 const deleteProduct = (id) => async (dispatch) => {
-  // console.log(id)
-  // try {
-  //   dispatch({type: types.PRODUCT_DELETE_REQUEST})
-  //   const res = await api.delete(`/product/${id}`);
-  //   if(res.status === 200) {
-  //     dispatch({type: types.PRODUCT_DELETE_SUCCESS, payload: res.data.data});
-  //     dispatch(commonUiActions.showToastMessage('상품 삭제 완료', 'success'));
-  //     dispatch(getProductList({page: 1, name: ''}));
-  //   } else if (res.status === 400) {
-  //     throw new Error(res.error);
-  //   }
-  // } catch (error) {
-  //   dispatch({type:types.PRODUCT_DELETE_FAIL, payload: error.error});
-  //   dispatch(commonUiActions.showToastMessage(error.error, 'error'));
-  // }
+  console.log(id)
+  try {
+    dispatch({type: types.PRODUCT_DELETE_REQUEST})
+    const res = await api.delete(`/product/${id}`);
+    if(res.status === 200) {
+      dispatch({type: types.PRODUCT_DELETE_SUCCESS, payload: res.data.data});
+      dispatch(commonUiActions.showToastMessage('상품 삭제 완료', 'success'));
+      dispatch(getProductList({page: 1, name: ''}));
+    } else if (res.status === 400) {
+      throw new Error(res.error);
+    }
+  } catch (error) {
+    dispatch({type:types.PRODUCT_DELETE_FAIL, payload: error.error});
+    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+  }
 };
 
 const editProduct = (formData, id) => async (dispatch) => {
