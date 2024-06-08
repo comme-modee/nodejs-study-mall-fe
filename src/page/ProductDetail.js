@@ -22,11 +22,16 @@ const ProductDetail = () => {
 
   const addItemToCart = () => {
     //사이즈를 아직 선택안했다면 에러
+    if(size === '') {
+      setSizeError(true);
+      return;
+    }
     // 아직 로그인을 안한유저라면 로그인페이지로
     // 카트에 아이템 추가하기
   };
   const selectSize = (value) => {
     // 사이즈 추가하기
+    setSize(value);
   };
 
   //카트에러가 있으면 에러메세지 보여주기
