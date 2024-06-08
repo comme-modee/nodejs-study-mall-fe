@@ -22,7 +22,7 @@ const CartPage = () => {
       <Row>
         <Col xs={12} md={7}>
           {cartList.length > 0 ?
-            <CartProductCard cartList={cartList}/>
+            cartList.map((item) => <CartProductCard item={item}/>)
             :
             <div className="text-align-center empty-bag">
               <h2>카트가 비어있습니다.</h2>
