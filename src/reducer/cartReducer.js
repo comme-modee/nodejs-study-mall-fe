@@ -18,7 +18,7 @@ function cartReducer(state = initialState, action) {
     case types.ADD_TO_CART_REQUEST:
       return {...state, loading: true}
     case types.ADD_TO_CART_SUCCESS:
-      return {...state, cartItemQty: payload.cartItemQty, cartList: payload}
+      return {...state, cartItemQty: payload.cartItemQty, cartList: payload.data}
     case types.ADD_TO_CART_FAIL:
       return {...state, loading:false, error: payload}
 
