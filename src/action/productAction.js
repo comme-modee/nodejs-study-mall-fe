@@ -30,10 +30,10 @@ const getProductDetail = (id) => async (dispatch) => {
     if (res.status === 200) {
       dispatch({
         type: types.GET_PRODUCT_DETAIL_SUCCESS,
-        payload: response.data.data,
+        payload: res.data.data,
       });
     } else if (res.status === 400) {
-      throw new Error(response.error);
+      throw new Error(res.error);
     }
   } catch (error) {
     dispatch({ type: types.GET_PRODUCT_DETAIL_FAIL, payload: error.error });
