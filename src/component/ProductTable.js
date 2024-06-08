@@ -16,6 +16,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
         <tbody>
           {data.length > 0 ? (
             data.map((item, index) => (
+              item.isDeleted === false &&
               <tr key={index}>
                 <th>{index}</th>
                 <th>{item.sku}</th>
