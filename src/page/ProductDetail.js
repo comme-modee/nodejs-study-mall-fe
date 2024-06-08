@@ -11,12 +11,13 @@ import "../style/productDetail.style.css";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const loading = useSelector((state) => state.product.loading);
   const error = useSelector((state) => state.product.error);
-  const [size, setSize] = useState("");
+  const [ size, setSize ] = useState("");
   const { id } = useParams();
-  const [sizeError, setSizeError] = useState(false);
+  const [ sizeError, setSizeError ] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const ProductDetail = () => {
       return;
     } 
     // 아직 로그인을 안한유저라면 로그인페이지로
+    if(!user) navigate('/login');
     // 카트에 아이템 추가하기
   };
   const selectSize = (value) => {
@@ -89,7 +91,18 @@ const ProductDetail = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="size-drop-down">
-              <Dropdown.Item>M</Dropdown.Item>
+              {Object.keys(selectedProduct.stock).length > 0 &&
+                Object.keys(selectedProduct.stock).map((item) =>
+                  selectedProduct.stock[item] > 0 ? (
+                    <Dropdown.Item eventKey={item}>
+                      {item.toUpperCase()}
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item eventKey={item} disabled={true}>
+                      {item.toUpperCase()}
+                    </Dropdown.Item>
+                  )
+                )}
             </Dropdown.Menu>
           </Dropdown>
           <div className="warning-message">
