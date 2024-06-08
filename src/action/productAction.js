@@ -28,6 +28,7 @@ const getProductDetail = (id) => async (dispatch) => {
     dispatch({ type: types.GET_PRODUCT_DETAIL_REQUEST });
     const res = await api.get(`/product/${id}`);
     if (res.status === 200) {
+      console.log(res)
       dispatch({
         type: types.GET_PRODUCT_DETAIL_SUCCESS,
         payload: res.data.data,
