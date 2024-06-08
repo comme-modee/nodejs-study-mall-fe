@@ -25,12 +25,14 @@ const ProductDetail = () => {
     if(size === '') {
       setSizeError(true);
       return;
-    }
+    } 
     // 아직 로그인을 안한유저라면 로그인페이지로
     // 카트에 아이템 추가하기
   };
   const selectSize = (value) => {
     // 사이즈 추가하기
+    console.log(value)
+    if(sizeError) setSizeError(false);
     setSize(value);
   };
 
