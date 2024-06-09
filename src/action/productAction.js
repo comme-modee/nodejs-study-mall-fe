@@ -61,15 +61,15 @@ const createProduct = (formData) => async (dispatch) => {
   }
 };
 
-const deleteProduct = (id) => async (dispatch) => {
-  console.log(id)
+const deleteProduct = (id, searchQuery) => async (dispatch) => {
+  console.log('delete', id, searchQuery)
   try {
     dispatch({type: types.PRODUCT_DELETE_REQUEST})
     const res = await api.delete(`/product/${id}`);
     if(res.status === 200) {
       dispatch({type: types.PRODUCT_DELETE_SUCCESS, payload: res.data.data});
       dispatch(commonUiActions.showToastMessage('상품 삭제 완료', 'success'));
-      dispatch(getProductList({page: 1, name: ''}));
+      dispatch(getProductList({...searchQuery}));
     } else if (res.status === 400) {
       throw new Error(res.error);
     }
@@ -79,8 +79,8 @@ const deleteProduct = (id) => async (dispatch) => {
   }
 };
 
-const editProduct = (formData, id) => async (dispatch) => {
-  console.log(formData, id)
+const editProduct = (formData, id, searchQuery) => async (dispatch) => {
+  console.log('edit', formData, id, searchQuery)
   try {
     dispatch({type: types.PRODUCT_EDIT_REQUEST})
     const res = await api.put(`/product/${id}`, formData);
@@ -88,7 +88,7 @@ const editProduct = (formData, id) => async (dispatch) => {
     if(res.status === 200) {
       dispatch({type: types.PRODUCT_EDIT_SUCCESS, payload: res.data.data});
       dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));
-      dispatch(getProductList({page: 1, name: ''}));
+      dispatch(getProductList({...searchQuery}));
     } else if (res.status === 400) {
       throw new Error(res.error);
     }
