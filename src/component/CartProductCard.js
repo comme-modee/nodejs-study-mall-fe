@@ -42,7 +42,7 @@ const CartProductCard = ({ item }) => {
             <strong>₩ {item.productId.price}</strong>
           </div>
           <div>Size: {item.size.toUpperCase()}</div>
-          <div>Total: ₩ 45,000</div>
+          <div>Total: ₩ {item.productId.price * item.qty}</div>
           <div>
             Quantity:
             <Form.Select
