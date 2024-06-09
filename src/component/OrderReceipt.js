@@ -29,7 +29,7 @@ const OrderReceipt = ({ cartList }) => {
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>₩ 최종가격</strong>
+          <strong>₩ {cartList.length > 0 ? (cartList.reduce((total, item) => total + item.productId.price, 0)) : 0}</strong>
         </div>
       </div>
       {location.pathname.includes("/cart") && (
