@@ -42,8 +42,8 @@ const getProductDetail = (id) => async (dispatch) => {
   }
 };
 
-const createProduct = (formData) => async (dispatch) => {
-  console.log(formData)
+const createProduct = (formData, searchQuery) => async (dispatch) => {
+  console.log('create', formData, searchQuery)
   try {
     dispatch({type:types.PRODUCT_CREATE_REQUEST});
     const res = await api.post('/product', formData);
@@ -51,7 +51,7 @@ const createProduct = (formData) => async (dispatch) => {
     if(res.status === 200) {
       dispatch({type:types.PRODUCT_CREATE_SUCCESS});
       dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
-      dispatch(getProductList({page: 1, name: ''}));
+      dispatch(getProductList({...searchQuery}));
     } else if (res.status === 400) {
       throw new Error(res.error);
     }
