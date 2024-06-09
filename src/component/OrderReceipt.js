@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import { currencyFormat } from "../utils/number";
 
-const OrderReceipt = ({ cartList }) => {
+const OrderReceipt = ({ cartList, totalPrice }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const OrderReceipt = ({ cartList }) => {
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>₩ {cartList.length > 0 ? (cartList.reduce((total, item) => total + item.productId.price, 0)) : 0}</strong>
+          <strong>₩ {totalPrice}</strong>
         </div>
       </div>
       {location.pathname.includes("/cart") && (
