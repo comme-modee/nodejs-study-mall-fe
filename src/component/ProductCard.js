@@ -15,7 +15,7 @@ const ProductCard = ({ item }) => {
         alt={item.title}
       />
       <div>{item.title}</div>
-      <div>₩ {item.price}</div>
+      <div>₩ {currencyFormat(item.price)}</div>
     </div>
   );
 };
