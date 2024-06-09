@@ -12,9 +12,9 @@ const ProductCard = ({ item }) => {
     <div className="card" onClick={() => showProduct(item._id)}>
       <img
         src={item.image}
-        alt={item.title}
+        alt={item.name}
       />
-      <div>{item.title}</div>
+      <div>{item.name}</div>
       <div>₩ {currencyFormat(item.price)}</div>
     </div>
   );
