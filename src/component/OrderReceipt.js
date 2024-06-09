@@ -17,7 +17,7 @@ const OrderReceipt = ({ cartList }) => {
               cartList.map((item) => (
                 <div className="display-flex space-between">
                       <div>{item.productId.name}</div>
-                      <div>₩ {item.productId.price}</div>
+                      <div>₩ {currencyFormat(item.productId.price)}</div>
                 </div>
               ))
             ) : <div>카트에 아이템이 없습니다.</div>
