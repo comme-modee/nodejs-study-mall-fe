@@ -18,9 +18,11 @@ const AppLayout = ({ children }) => {
     dispatch(userActions.loginWithToken());
   }, []);
 
-  if(user) {
-    dispatch(cartActions.getCartList())
-  }
+  useEffect(() => {
+    if (user) {
+      dispatch(cartActions.getCartQty());
+    }
+  }, [user]);
 
   return (
     <div>
