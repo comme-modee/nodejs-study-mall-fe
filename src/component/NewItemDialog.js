@@ -50,7 +50,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
       //새 상품 만들기
-      dispatch(productActions.createProduct({...formData, stock: totalStock}));
+      dispatch(productActions.createProduct({...formData, stock: totalStock}, searchQuery));
       setFormData(InitialFormData);
       setShowDialog(false);
     } else {
