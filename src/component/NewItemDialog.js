@@ -18,7 +18,7 @@ const InitialFormData = {
   status: "active",
   price: 0,
 };
-const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
+const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
   const { selectedProduct } = useSelector((state) => state.product);
   const { error } = useSelector((state) => state.product);
   const [ formData, setFormData ] = useState(
@@ -27,15 +27,14 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [ stock, setStock ] = useState([]);
   const dispatch = useDispatch();
   const [ stockError, setStockError ] = useState(false);
-
-    console.log('뉴아이템다이알로그에서: ', selectedProduct)
-
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
     setFormData(InitialFormData);
     setShowDialog(false);
   };
+
+  console.log('뉴아이템다이알로그에서: ', selectedProduct)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -56,7 +55,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       setShowDialog(false);
     } else {
       // 상품 수정하기
-      dispatch(productActions.editProduct({...formData, stock: totalStock}, selectedProduct._id));
+      dispatch(productActions.editProduct({...formData, stock: totalStock}, selectedProduct._id, searchQuery));
       setShowDialog(false);
     }
   };
