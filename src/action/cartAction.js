@@ -34,7 +34,26 @@ const getCartList = () => async (dispatch) => {
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
   }
 };
-const deleteCartItem = (id) => async (dispatch) => {};
+
+const deleteCartItem = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: types.DELETE_CART_ITEM_REQUEST });
+    const res = await api.delete(`/cart/${id}`);
+    if (res.status === 200) {
+      dispatch({
+        type: types.DELETE_CART_ITEM_SUCCESS,
+        payload: res.data.cartItemQty,
+      });
+      dispatch(getCartList());
+    } else if (res.status === 400) {
+      throw new Error(res.error);
+    }
+
+  } catch (error) {
+    dispatch({ type: types.DELETE_CART_ITEM_FAIL, payload: error.error });
+    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+  }
+};
 
 const updateQty = (id, value) => async (dispatch) => {};
 const getCartQty = () => async (dispatch) => {};
