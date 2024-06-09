@@ -55,8 +55,39 @@ const deleteCartItem = (id) => async (dispatch) => {
   }
 };
 
-const updateQty = (id, value) => async (dispatch) => {};
-const getCartQty = () => async (dispatch) => {};
+const updateQty = (id, value) => async (dispatch) => {
+  try {
+    dispatch({ type: types.UPDATE_CART_ITEM_REQUEST });
+    const res = await api.put(`/cart/${id}`, { qty: value });
+    if (res.status === 200) {
+      dispatch({
+        type: types.UPDATE_CART_ITEM_SUCCESS,
+        payload: res.data.data,
+      });
+    } else if (res.status === 400) {
+      throw new Error(res.error);
+    }
+  } catch (error) {
+    dispatch({ type: types.UPDATE_CART_ITEM_FAIL, payload: error.error });
+    dispatch(commonUiActions.showToastMessage(error.error, "error"));
+  }
+};
+
+const getCartQty = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_CART_QTY_REQUEST });
+    const res = await api.get("/cart/qty");
+    if (res.status === 200) {
+      dispatch({ type: types.GET_CART_QTY_SUCCESS, payload: res.data.qty });
+    } else if(res.status === 400) {
+      throw new Error(res.error); 
+    }
+  } catch (error) {
+    dispatch({ type: types.GET_CART_QTY_FAIL, payload: error });
+    dispatch(commonUiActions.showToastMessage(error, "error"));
+  }
+};
+
 export const cartActions = {
   addToCart,
   getCartList,
