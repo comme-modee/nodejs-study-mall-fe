@@ -18,10 +18,10 @@ const InitialFormData = {
   status: "active",
   price: 0,
 };
-const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
-  const selectedProduct = useSelector((state) => state.product.selectedProduct);
+const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
+  const { selectedProduct } = useSelector((state) => state.product);
   const { error } = useSelector((state) => state.product);
-  const [formData, setFormData] = useState(
+  const [ formData, setFormData ] = useState(
     mode === "new" ? { ...InitialFormData } : selectedProduct
   );
   const [ stock, setStock ] = useState([]);
@@ -30,19 +30,34 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const handleClose = () => {
     //모든걸 초기화시키고;
     // 다이얼로그 닫아주기
-    setShowDialog(false)
+    setFormData(InitialFormData);
+    setShowDialog(false);
   };
+
+  console.log('뉴아이템다이알로그에서: ', selectedProduct)
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('formData', formData)
     //재고를 입력했는지 확인, 아니면 에러
+    if(stock.length === 0) {
+      return setStockError(true)
+    }
+
     // 재고를 배열에서 객체로 바꿔주기
+    const totalStock = stock.reduce((total, item)=>{
+      return {...total, [item[0]]:parseInt(item[1])}
+    },{})
     // [['M',2]] 에서 {M:2}로
     if (mode === "new") {
       //새 상품 만들기
+      dispatch(productActions.createProduct({...formData, stock: totalStock}, searchQuery));
+      setFormData(InitialFormData);
+      setShowDialog(false);
     } else {
       // 상품 수정하기
+      dispatch(productActions.editProduct({...formData, stock: totalStock}, selectedProduct._id, searchQuery));
+      setShowDialog(false);
     }
   };
 
@@ -62,14 +77,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     const newStock = stock.filter((item, index) => index !== idx );
     setStock(newStock);
   };
-
-  useEffect(()=>{
-    console.log('리랜더링')
-  },[])
-
-  useEffect(()=>{
-    console.log('sssss', stock)
-  },[stock])
 
   const handleSizeChange = (value, index) => {
     //  재고 사이즈 변환하기
@@ -111,8 +118,17 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     if (showDialog) {
       if (mode === "edit") {
         // 선택된 데이터값 불러오기 (재고 형태 객체에서 어레이로 바꾸기)
+        console.log(selectedProduct)
+        setFormData(selectedProduct)
+        const stockArray = Object.keys(selectedProduct.stock).map((size) => [
+          size,
+          selectedProduct.stock[size]
+        ]);
+        setStock(stockArray)
       } else {
         // 초기화된 값 불러오기
+        setFormData({...InitialFormData});
+        setStock([])
       }
     }
   }, [showDialog]);
