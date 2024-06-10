@@ -3,12 +3,13 @@ import * as types from "../constants/order.constants";
 import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
-const createOrder = (data) => async (dispatch) => {
+const createOrder = (data, navigate) => async (dispatch) => {
   try {
     dispatch({type: types.CREATE_ORDER_REQUEST});
     const res = await api.post('/order', data);
     if(res.status === 200) {
       dispatch({type: types.CREATE_ORDER_SUCCESS, payload: res.data.orderNum})
+      navigate('/payment/success')
     } else if(res.status === 400) {
       throw new Error(res.error)
     }
