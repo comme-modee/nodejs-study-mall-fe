@@ -15,7 +15,9 @@ const addToCart =
       }
     } catch (error) {
       dispatch({type: types.ADD_TO_CART_FAIL, payload: error.error});
-      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+      if(error.error === 'Invalid token') {
+        dispatch(commonUiActions.showToastMessage('로그인을 해주세요.', 'error'));
+      }
     }
   };
 
@@ -30,8 +32,11 @@ const getCartList = () => async (dispatch) => {
       throw new Error('카트 리스트를 불러오지 못했습니다.')
     }
   } catch (error) {
-    dispatch({type: types.GET_CART_LIST_FAIL, payload: error.error});
-    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    console.log('eee',error)
+    dispatch({type: types.GET_CART_LIST_FAIL, payload: error});
+    if(error.error === 'Invalid token') {
+      dispatch(commonUiActions.showToastMessage('로그인을 해주세요.', 'error'));
+    }
   }
 };
 

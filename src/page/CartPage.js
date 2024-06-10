@@ -6,10 +6,17 @@ import { cartActions } from "../action/cartAction";
 import CartProductCard from "../component/CartProductCard";
 import OrderReceipt from "../component/OrderReceipt";
 import "../style/cart.style.css";
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  if(!user) {
+    navigate('/login');
+  }
 
   
   useEffect(() => {
