@@ -55,7 +55,7 @@ const PaymentPage = () => {
         }
       })
     };
-    dispatch(orderActions.createOrder(data));
+    dispatch(orderActions.createOrder(data, navigate));
   };
 
   const handleFormChange = (event) => {
