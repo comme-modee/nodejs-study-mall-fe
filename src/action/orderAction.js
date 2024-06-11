@@ -8,13 +8,14 @@ const createOrder = (data, navigate) => async (dispatch) => {
     dispatch({type: types.CREATE_ORDER_REQUEST});
     const res = await api.post('/order', data);
     if(res.status === 200) {
-      dispatch({type: types.CREATE_ORDER_SUCCESS, payload: res.data.orderNum})
-      navigate('/payment/success')
+      dispatch({type: types.CREATE_ORDER_SUCCESS, payload: res.data.orderNum});
+      dispatch(cartActions.getCartQty());
+      navigate('/payment/success');
     } else if(res.status === 400) {
       throw new Error(res.error)
     }
   } catch (error) {
-    dispatch({type: types.CREATE_ORDER_FAIL, payload: error.error})
+    dispatch({type: types.CREATE_ORDER_FAIL, payload: error.error});
     dispatch(commonUiActions.showToastMessage(error.error, 'error'));
   }
 };
