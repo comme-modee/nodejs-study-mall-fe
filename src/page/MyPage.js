@@ -16,7 +16,7 @@ const MyPage = () => {
   //오더리스트 들고오기
   useEffect(()=>{
     dispatch(orderActions.getOrder());
-  },[])
+  },[dispatch])
   console.log(orderList)
   
   // 로딩중이라면 스피너 보여주기
