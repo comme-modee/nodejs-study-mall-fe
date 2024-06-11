@@ -16,7 +16,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
             {cartList.length > 0 &&
               cartList.map((item) => (
                 <div key={item._id} className="display-flex space-between">
-                      <div>{item.productId.name} / {item.size.toUpperCase()} / {item.qty}</div>
+                      <div>{item.productId.name}, {item.size.toUpperCase()}, {item.qty}개</div>
                       <div>₩ {currencyFormat(item.productId.price * item.qty)}</div>
                 </div>
             ))}

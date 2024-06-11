@@ -1,0 +1,17 @@
+.order-detail {
+    background-color: white;
+    padding:10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-bottom: 20px;
+}
+
+.order-detail-container{
+    margin-bottom: 20px;
+    max-width: 750px;
+}
+
+.order-detail-table { text-align: center; }
+.order-detail-table .img-title { text-align: left; padding: 0 40px; }
+.order-detail-table .img-title img { margin-right: 20px; }
+.order-detail-table .total-price { text-align: left; }
+.order-detail .top > div { padding: 4px 0; }
