@@ -5,7 +5,7 @@ const initialState = {
   error: '',
   orderNum: null,
   orderList: [],
-  orderDetailInfo: {}
+  orderDetailInfo: null
 };
 
 function orderReducer(state = initialState, action) {
