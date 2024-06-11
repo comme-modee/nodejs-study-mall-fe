@@ -6,6 +6,7 @@ import { orderActions } from '../action/orderAction';
 import { currencyFormat } from '../utils/number';
 import '../style/orderDetailPage.css';
 import { ColorRing } from 'react-loader-spinner';
+import { badgeBg } from "../constants/order.constants";
 
 const OrderDetailInfo = () => {
     const dispatch = useDispatch();
@@ -37,12 +38,12 @@ const OrderDetailInfo = () => {
             <Row className="order-detail">
                 <Col>
                     <div className='top'>
-                        <div><strong>주문번호:</strong> {orderDetailInfo?.orderNum}</div>
-                        <div><strong>주문날짜:</strong> {orderDetailInfo?.createdAt.split('T')[0]}</div>
-                        <div><strong>주소:</strong> {`[${orderDetailInfo?.shipTo.zip}] ${orderDetailInfo?.shipTo.city} ${orderDetailInfo?.shipTo.address}`}</div>
-                        <div><strong>주문자명:</strong> {`${orderDetailInfo?.contact.firstName} ${orderDetailInfo?.contact.lastName}`}</div>
-                        <div><strong>연락처:</strong> {orderDetailInfo?.contact.contact}</div>
-                        <div><strong>주문상태:</strong> <Badge bg="warning">{orderDetailInfo?.status}</Badge></div>
+                        <div><strong>주문번호:</strong> {orderDetailInfo.orderNum}</div>
+                        <div><strong>주문날짜:</strong> {orderDetailInfo.createdAt.split('T')[0]}</div>
+                        <div><strong>주소:</strong> {`[${orderDetailInfo.shipTo.zip}] ${orderDetailInfo.shipTo.city} ${orderDetailInfo.shipTo.address}`}</div>
+                        <div><strong>주문자명:</strong> {`${orderDetailInfo.contact.firstName} ${orderDetailInfo.contact.lastName}`}</div>
+                        <div><strong>연락처:</strong> {orderDetailInfo.contact.contact}</div>
+                        <div><strong>주문상태:</strong> <Badge bg={`${badgeBg[orderDetailInfo.status]}`}>{orderDetailInfo.status}</Badge></div>
                     </div>
                     <div className="overflow-x">
                         <Table className='order-detail-table'>
@@ -56,8 +57,8 @@ const OrderDetailInfo = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {orderDetailInfo?.items.length > 0 &&
-                                    orderDetailInfo?.items.map((item) => (
+                                {orderDetailInfo.items.length > 0 &&
+                                    orderDetailInfo.items.map((item) => (
                                     <tr key={item._id}>
                                         <td>{item._id}</td>
                                         <td className='img-title'><img height={96} src={item.productId.image} alt={item.productId.name}/>{item.productId.name}</td>
@@ -68,7 +69,7 @@ const OrderDetailInfo = () => {
                                     ))}
                                 <tr>
                                     <td colSpan={4} className='total-price'><strong>총계:</strong></td>
-                                    <td>₩ {currencyFormat(orderDetailInfo?.totalPrice)}</td>
+                                    <td>₩ {currencyFormat(orderDetailInfo.totalPrice)}</td>
                                 </tr>
                             </tbody>
                         </Table>

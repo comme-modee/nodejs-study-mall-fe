@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Badge } from "react-bootstrap";
-// import { badgeBg } from "../constants/order.constants";
+import { badgeBg } from "../constants/order.constants";
 import { currencyFormat } from "../utils/number";
 import { useNavigate } from "react-router";
 
@@ -35,7 +35,7 @@ const OrderStatusCard = ({ order }) => {
         </Col>
         <Col md={2} className="vertical-middle">
           <div className="text-align-center text-12">주문상태</div>
-          <Badge bg="warning">{order.status}</Badge>
+          <Badge bg={`${badgeBg[order.status]}`}>{order.status}</Badge>
         </Col>
       </Row>
     </div>
