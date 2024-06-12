@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import { Container, Row, Col, Button, Dropdown, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../action/productAction";
 import { ColorRing } from "react-loader-spinner";
@@ -8,6 +8,7 @@ import { cartActions } from "../action/cartAction";
 import { commonUiActions } from "../action/commonUiAction";
 import { currencyFormat } from "../utils/number";
 import "../style/productDetail.style.css";
+import * as types from '../constants/cart.constants'
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,11 @@ const ProductDetail = () => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const loading = useSelector((state) => state.product.loading);
   const error = useSelector((state) => state.product.error);
+  const { addCartSuccess } = useSelector((state) => state.cart);
   const [ size, setSize ] = useState("");
   const { id } = useParams();
   const [ sizeError, setSizeError ] = useState(false);
+  const [ showModal, setShowModal ] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +42,20 @@ const ProductDetail = () => {
     setSize(value);
   };
 
+  const handleBtn = (value) => {
+    const direction = value;
+    dispatch({type: types.SET_ADD_SUCCESS_MODAL, payload: false})
+    if(direction === 'cart') {
+      navigate('/cart');
+    } else if (direction === 'main') {
+      navigate('/')
+    }
+  }
+
+  useEffect(()=> {
+    console.log('카트 추가 성공', addCartSuccess)
+  },[addCartSuccess])
+
   //카트에러가 있으면 에러메세지 보여주기
 
   //에러가 있으면 에러메세지 보여주기
@@ -47,6 +64,7 @@ const ProductDetail = () => {
     //상품 디테일 정보 가져오기
     dispatch(productActions.getProductDetail(id));
   }, [id]);
+
 
   if (loading || !selectedProduct)
     return (
@@ -65,6 +83,20 @@ const ProductDetail = () => {
 
   return (
     <Container className="product-detail-card">
+      <Modal size="xs" show={addCartSuccess} onHide={!addCartSuccess} animation={false}>
+        <Modal.Header closeButton>
+          {/* <Modal.Title>아이템 삭제</Modal.Title> */}
+        </Modal.Header>
+        <Modal.Body className="text-center">카트에 상품을 담았습니다.</Modal.Body>
+        <Modal.Footer className="d-flex justify-content-center">
+          <Button variant="secondary" onClick={() => handleBtn('main')}>
+            다른 상품 더 보기
+          </Button>
+          <Button variant="primary" onClick={() => handleBtn('cart')}>
+            카트 확인하기
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Row>
         <Col sm={6}>
           <img
@@ -97,11 +129,11 @@ const ProductDetail = () => {
               {Object.keys(selectedProduct.stock).length > 0 &&
                 Object.keys(selectedProduct.stock).map((item) =>
                   selectedProduct.stock[item] > 0 ? (
-                    <Dropdown.Item eventKey={item}>
+                    <Dropdown.Item eventKey={item} key={item}>
                       {item.toUpperCase()}
                     </Dropdown.Item>
                   ) : (
-                    <Dropdown.Item eventKey={item} disabled={true}>
+                    <Dropdown.Item eventKey={item} disabled={true} key={item}>
                       {item.toUpperCase()}
                     </Dropdown.Item>
                   )

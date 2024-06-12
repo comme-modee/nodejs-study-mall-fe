@@ -49,7 +49,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
             data.map((item, index) => (
               item.isDeleted === false &&
               <tr key={index}>
-                <th>{index}</th>
+                <th>{index + 1}</th>
                 <th>{item.sku}</th>
                 <th style={{ minWidth: "100px" }}>{item.name}</th>
                 <th>{currencyFormat(item.price)}</th>

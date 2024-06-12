@@ -38,7 +38,7 @@ const getOrder = () => async (dispatch) => {
 const getOrderDetailInfo = (id) => async (dispatch) => {
     try {
       dispatch({type: types.GET_ORDER_DETAIL_INFO_REQUEST});
-      const res = await api.get(`/order/${id}`);
+      const res = await api.get(`/order/detail/${id}`);
       if(res.status === 200) {
         dispatch({type: types.GET_ORDER_DETAIL_INFO_SUCCESS, payload: res.data.orderDetailInfo});
       } else if(res.status === 400) {
@@ -49,9 +49,38 @@ const getOrderDetailInfo = (id) => async (dispatch) => {
       dispatch(commonUiActions.showToastMessage(error.error, 'error'));
     }
 }
-const getOrderList = (query) => async (dispatch) => {};
+const getOrderList = (query) => async (dispatch) => {
+    try {
+      dispatch({type: types.GET_ORDER_LIST_REQUEST});
+      const res = await api.get(`/order/entire`, {
+        params: {...query}
+      });
+      if(res.status === 200) {
+        dispatch({type: types.GET_ORDER_LIST_SUCCESS, payload: res.data});
+      } else if(res.status === 400) {
+        throw new Error(res.error)
+      }
+    } catch (error) {
+      dispatch({type: types.GET_ORDER_LIST_FAIL, payload: error.error});
+      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    }
+};
 
-const updateOrder = (id, status) => async (dispatch) => {};
+const updateOrder = (id, status, searchQuery) => async (dispatch) => {
+    try {
+        dispatch({type: types.UPDATE_ORDER_REQUEST});
+        const res = await api.put(`/order/${id}`, { status });
+        if(res.status === 200) {
+          dispatch({type: types.UPDATE_ORDER_SUCCESS});
+          dispatch(getOrderList({...searchQuery}))
+        } else if(res.status === 400) {
+          throw new Error(res.error)
+        }
+    } catch (error) {
+        dispatch({type: types.UPDATE_ORDER_FAIL, payload: error.error});
+        dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    }
+};
 
 export const orderActions = {
   createOrder,

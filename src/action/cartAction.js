@@ -9,12 +9,14 @@ const addToCart =
       const res = await api.post('/cart', { productId: id, size, qty: 1 });
       if(res.status === 200) {
         dispatch({type: types.ADD_TO_CART_SUCCESS, payload: res.data.cartItemQty});
-        dispatch(commonUiActions.showToastMessage('카트에 상품이 추가되었습니다.', 'success'));
+        // dispatch(commonUiActions.showToastMessage('카트에 상품이 추가되었습니다.', 'success'));
+        dispatch({type: types.SET_ADD_SUCCESS_MODAL, payload: true})
       } else if(res.status === 400) {
         throw new Error('카트 추가에 실패했습니다.')
       }
     } catch (error) {
       dispatch({type: types.ADD_TO_CART_FAIL, payload: error.error});
+      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
       if(error.error === 'Invalid token') {
         dispatch(commonUiActions.showToastMessage('로그인을 해주세요.', 'error'));
       }

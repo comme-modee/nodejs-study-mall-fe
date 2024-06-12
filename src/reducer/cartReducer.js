@@ -7,10 +7,11 @@ import {
 
 const initialState = {
   loading: false,
+  addCartSuccess: false,
   error: '',
   cartItemQty: 0,
   cartList: [],
-  totalPrice: 0
+  totalPrice: 0,
 };
 
 function cartReducer(state = initialState, action) {
@@ -29,6 +30,9 @@ function cartReducer(state = initialState, action) {
     case types.ADD_TO_CART_SUCCESS:
     case types.DELETE_CART_ITEM_SUCCESS:
       return { ...state, loading: false, cartItemQty: payload };
+
+    case types.SET_ADD_SUCCESS_MODAL:
+      return { ...state, addCartSuccess: payload }
 
     case types.UPDATE_CART_ITEM_SUCCESS:
       return {
