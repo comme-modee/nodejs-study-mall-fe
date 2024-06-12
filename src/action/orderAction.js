@@ -31,7 +31,11 @@ const getOrder = () => async (dispatch) => {
     }
   } catch (error) {
     dispatch({type: types.GET_ORDER_FAIL, payload: error.error});
-    dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    if(error.error === 'Invalid token') {
+      dispatch(commonUiActions.showToastMessage('로그인을 해주세요.', 'error'));
+    } else {
+      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+    }
   }
 };
 
@@ -46,7 +50,11 @@ const getOrderDetailInfo = (id) => async (dispatch) => {
       }
     } catch (error) {
       dispatch({type: types.GET_ORDER_DETAIL_INFO_FAIL, payload: error.error});
-      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+      if(error.error === 'Invalid token') {
+        dispatch(commonUiActions.showToastMessage('로그인을 해주세요.', 'error'));
+      } else {
+        dispatch(commonUiActions.showToastMessage(error.error, 'error'));
+      }
     }
 }
 const getOrderList = (query) => async (dispatch) => {

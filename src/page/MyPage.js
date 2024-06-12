@@ -5,12 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { orderActions } from "../action/orderAction";
 import OrderStatusCard from "../component/OrderStatusCard";
 import "../style/orderStatus.style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ColorRing } from "react-loader-spinner";
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { orderList, loading } = useSelector((state) => state.order)
+  const { user } = useSelector((state) => state.user)
+
+  if(!user) {
+    navigate('/login')
+  }
 
   
   //오더리스트 들고오기

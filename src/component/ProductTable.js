@@ -20,6 +20,13 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
     setShow(true)
   };
 
+  const deleteItemAndCloseModal = () => {
+    deleteItem(deleteId)
+    setShow(false)
+    setDeleteId(null)
+    setDeleteName(null)
+  }
+
   return (
     <div className="overflow-x">
       <Modal show={show} onHide={handleClose} animation={false}>
@@ -31,7 +38,7 @@ const ProductTable = ({ header, data, deleteItem, openEditForm }) => {
           <Button variant="secondary" onClick={handleClose}>
             취소
           </Button>
-          <Button variant="danger" onClick={() => deleteItem(deleteId)}>
+          <Button variant="danger" onClick={() => deleteItemAndCloseModal()}>
             삭제
           </Button>
         </Modal.Footer>
