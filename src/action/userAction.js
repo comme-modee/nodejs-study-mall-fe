@@ -39,7 +39,21 @@ const logout = () => async (dispatch) => {
   sessionStorage.removeItem('token');
 };
 
-const loginWithGoogle = (token) => async (dispatch) => {};
+const loginWithGoogle = (token) => async (dispatch) => {
+    try {
+        dispatch({type: types.GOOGLE_LOGIN_REQUEST});
+        const res = await api.post('/user/google', {token});
+        if(res.status === 200) {
+            sessionStorage.setItem('token', res.data.token)
+            dispatch({type: types.GOOGLE_LOGIN_SUCCESS, payload: res.data})
+        } else if (res.status === 400) {
+            throw new Error(res.error)
+        }
+    } catch (error) {
+      dispatch({type: types.GOOGLE_LOGIN_FAIL, payload: error.error})
+      dispatch(commonUiActions.showToastMessage(error.error, "error"))
+    }
+};
 
 const registerUser =
   ({ email, name, password }, navigate) =>
