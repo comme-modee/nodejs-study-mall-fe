@@ -1,5 +1,9 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('./font/PretendardVariable.woff2');
+}
 body{
-  font-family: sans-serif;
+  font-family: 'Pretendard';
   background-color: #FAF9F8;
 }
 .nav-header{
@@ -33,6 +37,10 @@ body{
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  font-size: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  /* letter-spacing: -2px; */
 }
 .nav-menu-area{
   display: flex;

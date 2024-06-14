@@ -7,22 +7,36 @@ import CartProductCard from "../component/CartProductCard";
 import OrderReceipt from "../component/OrderReceipt";
 import "../style/cart.style.css";
 import { useNavigate } from "react-router";
+import { ColorRing } from "react-loader-spinner";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { cartList, totalPrice, loading, cartItemQty } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   if(!user) {
     navigate('/login');
   }
-
   
   useEffect(() => {
-    //카트리스트 불러오기
     dispatch(cartActions.getCartList())
   }, []);
+
+  if (loading && cartItemQty !== 0)
+    return (
+      <Row className="color-ring">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+        />
+      </Row>
+    );
 
   return (
     <Container>
@@ -38,7 +52,7 @@ const CartPage = () => {
           }
         </Col>
         <Col xs={12} md={5}>
-          <OrderReceipt cartList={cartList} totalPrice={totalPrice}/>
+          <OrderReceipt cartList={cartList} totalPrice={totalPrice} coupons={user.coupons}/>
         </Col>
       </Row>
     </Container>

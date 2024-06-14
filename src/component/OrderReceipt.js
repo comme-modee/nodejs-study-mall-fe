@@ -3,10 +3,19 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import { currencyFormat } from "../utils/number";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../action/cartAction";
+import * as types from "../constants/cart.constants";
 
-const OrderReceipt = ({ cartList, totalPrice }) => {
+const OrderReceipt = ({ cartList, totalPrice, coupons }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { selectedCoupon } = useSelector((state) => state.cart);
+
+  const selectCoupon = (value) => {
+    dispatch({type: types.SET_SELECTED_COUPON, payload: value})
+  }
 
   return (
     <div className="receipt-container">
@@ -22,12 +31,30 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
             ))}
         </li>
       </ul>
+      {cartList.length > 0 && coupons && coupons.length > 0 &&
+        <select onChange={(e) => selectCoupon(e.target.value)}>
+          {coupons && coupons.map((item) => item.valid && <option key={item.type} value={item.type}>{`${item.name} 쿠폰 - ${item.value}${item.unit === 'won' ? '원' : item.unit === 'percent' ? '%' : ''} 할인`}</option>)}
+        </select>  
+      }
+      {selectedCoupon && 
+          <div className="display-flex space-between">
+            <div>쿠폰 할인 금액:</div>
+            <div>{selectedCoupon === 'c1' ? '₩ 3000' : 
+                          selectedCoupon === 'c2' ? `₩ ${currencyFormat(totalPrice*0.1)}` : 
+                          selectedCoupon === 'c3' ? `₩ ${currencyFormat(totalPrice*0.15)}` : ''}
+            </div>
+          </div>
+      }
       <div className="display-flex space-between receipt-title">
         <div>
-          <strong>Total:</strong>
+          <strong>총 주문금액:</strong>
         </div>
         <div>
-          <strong>₩ {currencyFormat(totalPrice)}</strong>
+          {selectedCoupon && selectedCoupon === 'c1' ? <strong>₩ {currencyFormat(totalPrice-3000)}</strong> :
+            selectedCoupon && selectedCoupon === 'c2' ? <strong>₩ {currencyFormat(totalPrice-totalPrice*0.1)}</strong>:
+            selectedCoupon && selectedCoupon === 'c3' ? <strong>₩ {currencyFormat(totalPrice-totalPrice*0.15)}</strong>:
+            <strong>₩ {currencyFormat(totalPrice)}</strong>
+          }
         </div>
       </div>
       {location.pathname.includes("/cart") && cartList.length > 0 && (

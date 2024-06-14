@@ -1,0 +1,10 @@
+.main-slider {
+    width: 100vw;
+    max-width: 1920px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+.main-slider .slick-dots { bottom: 20px; color: #fff; }
+.main-slider .slick-dots li { margin: 0 14px; }
+.main-slider .slick-dots li button:before { font-size: 20px; }
+.main-slider .slide-img { width: 100%; height: 100%; }

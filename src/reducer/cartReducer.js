@@ -12,6 +12,7 @@ const initialState = {
   cartItemQty: 0,
   cartList: [],
   totalPrice: 0,
+  selectedCoupon: null
 };
 
 function cartReducer(state = initialState, action) {
@@ -44,6 +45,9 @@ function cartReducer(state = initialState, action) {
           0
         ),
       };
+
+    case types.SET_SELECTED_COUPON:
+      return { ...state, selectedCoupon: payload }
 
     case types.GET_CART_LIST_SUCCESS:
       return {

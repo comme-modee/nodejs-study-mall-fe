@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
+  faArrowCircleDown,
+  faArrowCircleUp,
   faBars,
   faBox,
   faSearch,
   faShoppingBag,
+  faUserAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -18,14 +20,14 @@ const Navbar = ({ user }) => {
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [ showSearchBox, setShowSearchBox ] = useState(false);
   const menuList = [
-    "여성",
-    "Divided",
-    "남성",
-    "신생아/유아",
-    "아동",
-    "H&M HOME",
-    "Sale",
-    "지속가능성",
+    "NEW",
+    "TOP",
+    "OUTER",
+    "DRESS",
+    "BOTTOM",
+    "ACC",
+    "SHOES",
+    "SALE",
   ];
   let [ width, setWidth ] = useState(0);
   let navigate = useNavigate();
@@ -90,14 +92,14 @@ const Navbar = ({ user }) => {
           <div className="display-flex">
             {user ? (
               <div onClick={logout} className="nav-icon">
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faArrowCircleUp} />
                 {!isMobile && (
                   <span style={{ cursor: "pointer" }}>로그아웃</span>
                 )}
               </div>
             ) : (
               <div onClick={() => navigate("/login")} className="nav-icon">
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faArrowCircleDown} />
                 {!isMobile && <span style={{ cursor: "pointer" }}>로그인</span>}
               </div>
             )}
@@ -121,18 +123,33 @@ const Navbar = ({ user }) => {
                 <FontAwesomeIcon icon={faSearch} />
               </div>
             )}
+            {user && 
+              <div
+                onClick={() => navigate("/account")}
+                className="nav-icon"
+              >
+                <FontAwesomeIcon icon={faUserAlt} />
+                {!isMobile && <span style={{ cursor: "pointer" }}>마이페이지</span>}
+              </div>
+            }
+            {user && isMobile && (
+              <div className="nav-icon">
+                <FontAwesomeIcon icon={faUserAlt} />
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="nav-logo" onClick={() => navigate("/")}> 
-        <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
+        COMME MALL
+        {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
       </div>
       <div className="nav-menu-area">
         <ul className="menu">
           {menuList.map((menu, index) => (
             <li key={index}>
-              <a href="#">{menu}</a>
+              <a href={`/${menu.toLowerCase()}`}>{menu}</a>
             </li>
           ))}
         </ul>

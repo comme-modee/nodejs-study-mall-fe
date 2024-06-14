@@ -136,7 +136,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
   //에러나면 토스트 메세지 보여주기
 
   return (
-    <Modal show={showDialog} onHide={handleClose}>
+    <Modal size="lg" show={showDialog} onHide={handleClose}>
       <Modal.Header closeButton>
         {mode === "new" ? (
           <Modal.Title>Create New Product</Modal.Title>

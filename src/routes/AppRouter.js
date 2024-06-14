@@ -12,6 +12,7 @@ import ProductDetail from "../page/ProductDetail";
 import RegisterPage from "../page/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
 import OrderDetailInfo from "../page/OrderDetailInfo";
+import MyUserPage from "../page/MyUserPage";
 
 const AppRouter = () => {
   return (
@@ -24,6 +25,7 @@ const AppRouter = () => {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/payment/success" element={<OrderCompletePage />} />
+        <Route path="/account" element={<MyUserPage />} />
         <Route path="/account/purchase" element={<MyPage />} />
         <Route path="/account/purchase/:id" element={<OrderDetailInfo />} />
       </Route>

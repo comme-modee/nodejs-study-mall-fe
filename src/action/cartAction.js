@@ -98,10 +98,23 @@ const getCartQty = () => async (dispatch) => {
   }
 };
 
+const useCoupon = (type) => async (dispatch) => {
+  try {
+    const res = await api.post("/cart/coupon", { type });
+    if (res.status === 200) {
+    } else if(res.status === 400) {
+      throw new Error(res.error); 
+    }
+  } catch (error) {
+    dispatch(commonUiActions.showToastMessage(error, "error"));
+  }
+};
+
 export const cartActions = {
   addToCart,
   getCartList,
   deleteCartItem,
   updateQty,
   getCartQty,
+  useCoupon
 };

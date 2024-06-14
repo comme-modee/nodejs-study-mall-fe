@@ -1,0 +1,32 @@
+.my-user-page {
+    margin: 0 auto;
+    background-color: rgb(255, 243, 240);
+    width: 800px;
+    padding: 50px;
+}
+
+.my-user-page > .title {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: lightcoral;
+}
+.coupon-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.coupon {
+    width: calc(50% - 10px);
+    border: 1px solid pink;
+    padding: 20px 30px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.coupon > .type { display: block; }
+.coupon > .value { display: block; color: crimson; font-size: 24px; font-weight: 500; }
+.coupon > .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.coupon > .badges > .applicable { background-color: tomato; border-radius: 6px; color: #fff; font-size: 14px; padding: 4px 10px; }
+.coupon > .badges > .min-purchase { background-color: cornflowerblue; border-radius: 6px; color: #fff; font-size: 14px; padding: 4px 10px; }
+.coupon > .badges > .non { background-color: lightgray; color: #222; }

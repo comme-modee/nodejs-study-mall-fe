@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { commonUiActions } from "../action/commonUiAction";
 import { cc_expires_format } from "../utils/number";
+import { cartActions } from "../action/cartAction";
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const PaymentPage = () => {
     number: "",
   });
   const { user } = useSelector((state) => state.user);
-  const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { cartList, totalPrice, selectedCoupon } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [firstLoading, setFirstLoading] = useState(true);
   const [shipInfo, setShipInfo] = useState({
@@ -56,6 +57,7 @@ const PaymentPage = () => {
       })
     };
     dispatch(orderActions.createOrder(data, navigate));
+    dispatch(cartActions.useCoupon(selectedCoupon));
   };
 
   const handleFormChange = (event) => {
