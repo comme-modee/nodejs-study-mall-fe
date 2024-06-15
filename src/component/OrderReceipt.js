@@ -47,7 +47,8 @@ const OrderReceipt = ({ cartList, totalPrice, coupons, reward }) => {
           {coupons && coupons.map((item) => <option key={item.type} value={item.type} disabled={!item.valid || item.minPurchase > totalPrice}>{`${item.name} 쿠폰 - ${item.value}${item.unit === 'won' ? '원' : item.unit === 'percent' ? '%' : ''} 할인`} {item.minPurchase !== 0 ? `(${currencyFormat(item.minPurchase)}원 이상 사용가능)` : ''}</option>)}
         </select>  
       }
-      {cartList.length > 0 && reward && (
+
+      {cartList.length > 0 && reward !== 0 && (
         <select className='coupon-select' onChange={(e) => selectUseReward(e.target.value)}>
           <option value=''>--- 추가 할인 선택 ---</option>
           <option value={reward}>적립금 {reward}원 사용</option>
