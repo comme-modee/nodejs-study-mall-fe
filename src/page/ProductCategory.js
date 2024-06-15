@@ -37,7 +37,7 @@ const ProductCategory = () => {
   return (
     <>
         <Container>
-          <Row>
+          <Row className="display-center">
               {filteredList.length > 0 ? filteredList.map((item) => (
                 <Col md={3} sm={12} key={item._id}>
                     <ProductCard item={item}/>

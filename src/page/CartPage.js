@@ -15,9 +15,12 @@ const CartPage = () => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  if(!user) {
-    navigate('/login');
-  }
+  useEffect(()=>{
+    if (!user) {
+      navigate("/");
+    }
+  },[user])
+
   
   useEffect(() => {
     dispatch(cartActions.getCartList())

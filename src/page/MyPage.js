@@ -15,9 +15,11 @@ const MyPage = () => {
   const [ sortList, setSortList ] = useState([]);
   const { user } = useSelector((state) => state.user)
 
-  if(!user) {
-    navigate('/login')
-  }
+  useEffect(()=>{
+    if (!user) {
+      navigate("/");
+    }
+  },[user])
 
   //오더리스트 들고오기
   useEffect(()=>{

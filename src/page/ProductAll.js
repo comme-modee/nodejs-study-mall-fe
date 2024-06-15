@@ -35,7 +35,7 @@ const ProductAll = () => {
         <MainSlider/>
         
         <Container>
-          <Row>
+          <Row className="display-center">
               {sortList && sortList.map((item) => (
                 <Col md={3} sm={12} key={item._id}>
                     <ProductCard item={item}/>

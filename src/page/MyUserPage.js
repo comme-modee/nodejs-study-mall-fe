@@ -11,9 +11,12 @@ const MyUserPage = () => {
     const dispatch = useDispatch();
     const { user, loading } = useSelector((state) => state.user);
     
-    if(!user) {
-        navigate('/login')
-    }
+    useEffect(()=>{
+        if (!user) {
+            navigate("/");
+        }
+    },[user])
+    
 
     const addCoupons = (id) => {
         dispatch(userActions.addCoupons(id))

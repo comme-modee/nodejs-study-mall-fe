@@ -17,9 +17,11 @@ const Login = () => {
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
   
-  if (user) {
-    navigate("/");
-  }
+  useEffect(()=>{
+    if (user) {
+      navigate("/");
+    }
+  },[user])
   
   const loginWithEmail = (event) => {
     event.preventDefault();
