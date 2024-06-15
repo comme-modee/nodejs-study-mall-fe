@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../component/ProductCard";
+import Spinner from "../component/Spinner";
 import { Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "../action/productAction";
 import { commonUiActions } from "../action/commonUiAction";
 import { useParams, useSearchParams } from "react-router-dom";
-import MainSlider from "../component/MainSlider";
 
 const ProductCategory = () => {
   const dispatch = useDispatch();
   const [ query, setQuery ] = useSearchParams();
-  const { productList, totalPage } = useSelector((state) => state.product);
+  const { productList, totalPage, loading } = useSelector((state) => state.product);
   const { id } = useParams();
   const error = useSelector((state) => state.product.error);
   const [ filteredList, setFilteredList ] = useState([]);
@@ -29,10 +29,13 @@ const ProductCategory = () => {
     filteredByCategory(productList, id)
   },[productList, id])
 
+  if(loading || !productList)
+    return (
+      <Spinner/>
+    )
+
   return (
     <>
-        <MainSlider/>
-        
         <Container>
           <Row>
               {filteredList.length > 0 ? filteredList.map((item) => (
@@ -42,8 +45,7 @@ const ProductCategory = () => {
               ))
               : <Container className="confirmation-page">
                   <h5>상품을 준비중입니다.</h5>
-                </Container>
-              }
+                </Container>}
           </Row>
         </Container>
     </>
