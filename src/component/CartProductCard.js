@@ -45,8 +45,9 @@ const CartProductCard = ({ item }) => {
           </div>
           <div>Size: {item.size.toUpperCase()}</div>
           <div>Total: ₩ {currencyFormat(item.productId.price * item.qty)}</div>
-          <div>
-            Quantity:
+          <div className={`${item.productId.stock[item.size] > 10 ? 'color-blue' : 'color-red'}`}>재고: {item.productId.stock[item.size]}</div>
+          <div className="display-flex">
+            <div className="me-2">Quantity: </div>
             <Form.Select
               onChange={(event) => handleQtyChange(item._id, event.target.value)}
               required
