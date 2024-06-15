@@ -1,2 +1,6 @@
 /api/* https://port-0-nodejs-study-mall-be-1272llwyghb5h.sel5.cloudtype.app/api/:splat 200
+<<<<<<< HEAD
 /* /index.html 200
+=======
+/* /index.html 200
+>>>>>>> 688e1cf5439fd41f144674202f67122d27924675
