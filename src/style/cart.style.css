@@ -42,3 +42,11 @@
     background-color: white;
     padding: 20px;
 }
+
+.coupon-select {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ced4da;
+    padding: 6px;
+    margin-bottom: 10px;
+}

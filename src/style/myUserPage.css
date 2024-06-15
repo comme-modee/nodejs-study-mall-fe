@@ -1,7 +1,8 @@
 .my-user-page {
     margin: 0 auto;
     background-color: rgb(255, 243, 240);
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     padding: 50px;
 }
 
@@ -17,11 +18,41 @@
     gap: 20px;
 }
 .coupon {
+    position: relative;
     width: calc(50% - 10px);
     border: 1px solid pink;
     padding: 20px 30px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+}
+
+.invalid {
+    border: 1px solid #a5a5a5;
+}
+.invalid::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(206, 206, 206, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.invalid-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid lightcoral;
+    background-color: rgba(255, 185, 185, 0.8);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .coupon > .type { display: block; }
@@ -30,3 +61,13 @@
 .coupon > .badges > .applicable { background-color: tomato; border-radius: 6px; color: #fff; font-size: 14px; padding: 4px 10px; }
 .coupon > .badges > .min-purchase { background-color: cornflowerblue; border-radius: 6px; color: #fff; font-size: 14px; padding: 4px 10px; }
 .coupon > .badges > .non { background-color: lightgray; color: #222; }
+
+
+@media screen and (max-width: 480px) {
+    .my-user-page { padding: 40px 20px; font-size: 14px; }
+    .coupon-wrapper { gap: 10px; }
+    .coupon { width: 100%; padding: 10px 20px; }
+    .coupon > .value { font-size: 22px; }
+    .coupon > .badges { gap: 6px; margin-top: 6px; }
+    .invalid-mark { font-size: 16px; }
+}

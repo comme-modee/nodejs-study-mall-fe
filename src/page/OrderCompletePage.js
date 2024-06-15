@@ -12,9 +12,8 @@ const OrderCompletePage = () => {
   if(!orderNum) {
     return (
       <Container className="confirmation-page">
-        <h2>주문 실패</h2>
+        <h2>주문페이지를 찾을 수 없습니다.</h2>
         <div>
-          메인페이지로 돌아가세요.
           <div className="text-align-center">
             <Link to={"/"}>메인페이지로 돌아가기</Link>
           </div>

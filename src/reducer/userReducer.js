@@ -12,6 +12,8 @@ function userReducer(state = initialState, action) {
     case types.LOGIN_REQUEST:
     case types.TOKEN_LOGIN_REQUEST:
     case types.GOOGLE_LOGIN_REQUEST:
+    case types.USE_COUPON_REQUEST:
+    case types.ADD_USER_COUPONS_REQUEST:
       return {...state, loading: true}
     case types.LOGIN_SUCCESS:
     case types.GOOGLE_LOGIN_SUCCESS:
@@ -24,11 +26,19 @@ function userReducer(state = initialState, action) {
     case types.GOOGLE_LOGIN_FAIL:
       return {...state, loading: false, error: payload};
     case types.TOKEN_LOGIN_FAIL:
+    case types.USE_COUPON_FAIL:
+    case types.ADD_USER_COUPONS_FAIL:
       return {...state, loading: false};
     case types.LOGOUT:
       return {...state, user: null}
     case types.CLEAR_ERROR:
       return {...state, error: ''}
+    case types.USE_COUPON_SUCCESS:
+      return {...state, loading: false}
+    case types.UPDATE_USER_AFTER_USE_COUPON:
+    case types.ADD_USER_COUPONS_SUCCESS:
+    case types.SET_REWARD:
+      return {...state, loading: false, user: payload}
     default:
       return state;
   }

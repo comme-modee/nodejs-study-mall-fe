@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import OrderReceipt from "../component/OrderReceipt";
 import PaymentForm from "../component/PaymentForm";
 import "../style/paymentPage.style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { orderActions } from "../action/orderAction";
-import { useEffect } from "react";
+import { userActions } from "../action/userAction";
 import { useNavigate } from "react-router";
 import { commonUiActions } from "../action/commonUiAction";
 import { cc_expires_format } from "../utils/number";
-import { cartActions } from "../action/cartAction";
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
@@ -22,9 +21,11 @@ const PaymentPage = () => {
     number: "",
   });
   const { user } = useSelector((state) => state.user);
-  const { cartList, totalPrice, selectedCoupon } = useSelector((state) => state.cart);
+  const { cartList, totalPrice } = useSelector((state) => state.cart);
+  const { selectedCoupon } = useSelector((state) => state.order);
   const navigate = useNavigate();
   const [firstLoading, setFirstLoading] = useState(true);
+  const [ totalPriceWithCoupon, setTotalPriceWithCoupon ] = useState(null);
   const [shipInfo, setShipInfo] = useState({
     firstName: "",
     lastName: "",
@@ -39,12 +40,40 @@ const PaymentPage = () => {
     navigate('/login')
   }
 
+  const discountWithCoupon = (type, totalPrice) => {
+    let discountPrice = null;
+
+    switch (type) {
+      case 'c1':
+          discountPrice = totalPrice - 3000;
+          break;
+      case 'c2':
+          discountPrice = totalPrice * 0.9;
+          break;
+      case 'c3':
+          discountPrice = totalPrice * 0.85;
+          break;
+      default:
+          discountPrice = totalPrice; // 쿠폰 타입이 잘못된 경우 할인 없이 기존 가격 유지
+          break;
+    }
+    return setTotalPriceWithCoupon(discountPrice);
+}
+
+  useEffect(()=>{
+    discountWithCoupon(selectedCoupon, totalPrice)
+  },[selectedCoupon])
+
+  useEffect(()=>{
+    console.log('쿠폰적용후', totalPriceWithCoupon)
+  },[totalPriceWithCoupon])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     //오더 생성하기
     const { firstName, lastName, contact, address, city, zip } = shipInfo;
     const data = { 
-      totalPrice, 
+      totalPrice: totalPriceWithCoupon || totalPrice, 
       shipTo: { address, city, zip }, 
       contact: { firstName, lastName, contact },
       orderList: cartList.map((item) => {
@@ -57,7 +86,7 @@ const PaymentPage = () => {
       })
     };
     dispatch(orderActions.createOrder(data, navigate));
-    dispatch(cartActions.useCoupon(selectedCoupon));
+    dispatch(userActions.useCoupon(selectedCoupon));
   };
 
   const handleFormChange = (event) => {

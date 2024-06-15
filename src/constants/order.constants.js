@@ -21,3 +21,5 @@ export const badgeBg = {
   refund: "danger",
   delivered: "success",
 };
+
+export const SET_SELECTED_COUPON = "SET_SELECTED_COUPON";

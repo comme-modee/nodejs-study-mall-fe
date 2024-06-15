@@ -1,5 +1,6 @@
 import api from "../utils/api";
 import * as types from "../constants/order.constants";
+import { SET_REWARD } from "../constants/user.constants";
 import { cartActions } from "./cartAction";
 import { commonUiActions } from "./commonUiAction";
 
@@ -9,6 +10,7 @@ const createOrder = (data, navigate) => async (dispatch) => {
     const res = await api.post('/order', data);
     if(res.status === 200) {
       dispatch({type: types.CREATE_ORDER_SUCCESS, payload: res.data.orderNum});
+      dispatch({type: SET_REWARD, payload: res.data.user})
       dispatch(cartActions.getCartQty());
       navigate('/payment/success');
     } else if(res.status === 400) {
@@ -95,5 +97,5 @@ export const orderActions = {
   getOrder,
   getOrderDetailInfo,
   getOrderList,
-  updateOrder,
+  updateOrder
 };

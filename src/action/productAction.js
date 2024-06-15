@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { commonUiActions } from "./commonUiAction";
 
 const getProductList = (query) => async (dispatch) => {
-  console.log('get product in', query)
   try {
     dispatch({type:types.PRODUCT_GET_REQUEST});
     const res = await api.get('/product', {
@@ -12,7 +11,6 @@ const getProductList = (query) => async (dispatch) => {
     });
     if(res.status === 200) {
       dispatch({type:types.PRODUCT_GET_SUCCESS, payload: res.data});
-      console.log('product data', res.data.data)
     } else if (res.status === 400) {
       throw new Error('there is no data')
     }
@@ -28,7 +26,6 @@ const getProductDetail = (id) => async (dispatch) => {
     dispatch({ type: types.GET_PRODUCT_DETAIL_REQUEST });
     const res = await api.get(`/product/${id}`);
     if (res.status === 200) {
-      console.log(res)
       dispatch({
         type: types.GET_PRODUCT_DETAIL_SUCCESS,
         payload: res.data.data,
@@ -43,11 +40,9 @@ const getProductDetail = (id) => async (dispatch) => {
 };
 
 const createProduct = (formData, searchQuery) => async (dispatch) => {
-  console.log('create', formData, searchQuery)
   try {
     dispatch({type:types.PRODUCT_CREATE_REQUEST});
     const res = await api.post('/product', formData);
-    console.log('createProduct', res)
     if(res.status === 200) {
       dispatch({type:types.PRODUCT_CREATE_SUCCESS});
       dispatch(commonUiActions.showToastMessage('상품 생성 완료', 'success'));
@@ -62,7 +57,6 @@ const createProduct = (formData, searchQuery) => async (dispatch) => {
 };
 
 const deleteProduct = (id, searchQuery) => async (dispatch) => {
-  console.log('delete', id, searchQuery)
   try {
     dispatch({type: types.PRODUCT_DELETE_REQUEST})
     const res = await api.delete(`/product/${id}`);
@@ -80,11 +74,9 @@ const deleteProduct = (id, searchQuery) => async (dispatch) => {
 };
 
 const editProduct = (formData, id, searchQuery) => async (dispatch) => {
-  console.log('edit', formData, id, searchQuery)
   try {
     dispatch({type: types.PRODUCT_EDIT_REQUEST})
     const res = await api.put(`/product/${id}`, formData);
-    console.log(res)
     if(res.status === 200) {
       dispatch({type: types.PRODUCT_EDIT_SUCCESS, payload: res.data.data});
       dispatch(commonUiActions.showToastMessage('상품 수정 완료', 'success'));

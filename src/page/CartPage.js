@@ -52,7 +52,7 @@ const CartPage = () => {
           }
         </Col>
         <Col xs={12} md={5}>
-          <OrderReceipt cartList={cartList} totalPrice={totalPrice} coupons={user.coupons}/>
+          <OrderReceipt cartList={cartList} totalPrice={totalPrice} coupons={user?.coupons}/>
         </Col>
       </Row>
     </Container>

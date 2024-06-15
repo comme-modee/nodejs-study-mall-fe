@@ -16,6 +16,7 @@ import { userActions } from "../action/userAction";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { cartItemQty } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [ showSearchBox, setShowSearchBox ] = useState(false);
@@ -26,8 +27,7 @@ const Navbar = ({ user }) => {
     "DRESS",
     "BOTTOM",
     "ACC",
-    "SHOES",
-    "SALE",
+    "SHOES"
   ];
   let [ width, setWidth ] = useState(0);
   let navigate = useNavigate();
@@ -44,6 +44,10 @@ const Navbar = ({ user }) => {
   const logout = () => {
     dispatch(userActions.logout());
   };
+
+  useEffect(()=>{
+    setWidth(0)
+  },[location])
   
   return (
     <div>
@@ -74,7 +78,7 @@ const Navbar = ({ user }) => {
 
         <div className="side-menu-list" id="menu-list">
           {menuList.map((menu, index) => (
-            <button key={index}>{menu}</button>
+            <button key={index} onClick={() => navigate(`/${menu.toLowerCase()}`)}>{menu}</button>
           ))}
         </div>
       </div>
@@ -132,18 +136,12 @@ const Navbar = ({ user }) => {
                 {!isMobile && <span style={{ cursor: "pointer" }}>마이페이지</span>}
               </div>
             }
-            {user && isMobile && (
-              <div className="nav-icon">
-                <FontAwesomeIcon icon={faUserAlt} />
-              </div>
-            )}
           </div>
         </div>
       </div>
 
       <div className="nav-logo" onClick={() => navigate("/")}> 
         COMME MALL
-        {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
       </div>
       <div className="nav-menu-area">
         <ul className="menu">

@@ -8,6 +8,7 @@ import MyPage from "../page/MyPage";
 import OrderCompletePage from "../page/OrderCompletePage";
 import PaymentPage from "../page/PaymentPage";
 import ProductAll from "../page/ProductAll";
+import ProductCategory from "../page/ProductCategory";
 import ProductDetail from "../page/ProductDetail";
 import RegisterPage from "../page/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
@@ -18,6 +19,7 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<ProductAll />} />
+      <Route path="/:id" element={<ProductCategory />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/product/:id" element={<ProductDetail />} />

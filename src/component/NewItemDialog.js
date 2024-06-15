@@ -5,8 +5,6 @@ import CloudinaryUploadWidget from "../utils/CloudinaryUploadWidget";
 import { productActions } from "../action/productAction";
 import { CATEGORY, STATUS, SIZE } from "../constants/product.constants";
 import "../style/adminProduct.style.css";
-import * as types from "../constants/product.constants";
-import { commonUiActions } from "../action/commonUiAction";
 
 const InitialFormData = {
   name: "",
@@ -34,11 +32,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
     setShowDialog(false);
   };
 
-  console.log('뉴아이템다이알로그에서: ', selectedProduct)
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('formData', formData)
     //재고를 입력했는지 확인, 아니면 에러
     if(stock.length === 0) {
       return setStockError(true)
@@ -118,7 +113,6 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
     if (showDialog) {
       if (mode === "edit") {
         // 선택된 데이터값 불러오기 (재고 형태 객체에서 어레이로 바꾸기)
-        console.log(selectedProduct)
         setFormData(selectedProduct)
         const stockArray = Object.keys(selectedProduct.stock).map((size) => [
           size,
@@ -202,7 +196,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog, searchQuery }) => {
                     required
                     defaultValue={item[0] ? item[0].toLowerCase() : ""}
                   >
-                    <option value="" disabled selected hidden>
+                    <option value="" disabled hidden>
                       Please Choose...
                     </option>
                     {SIZE.map((item, index) => (

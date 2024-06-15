@@ -69,11 +69,46 @@ const registerUser =
         dispatch({type: types.REGISTER_USER_FAIL, payload: error.error})
       }
   };
+
+  const addCoupons = (id) => async (dispatch) => {
+      try {
+        dispatch({type: types.ADD_USER_COUPONS_REQUEST});
+        const res = await api.put(`/user/info/${id}`);
+        if (res.status === 200) {
+          dispatch({type: types.ADD_USER_COUPONS_SUCCESS, payload: res.data.user});
+          dispatch(commonUiActions.showToastMessage('쿠폰이 발급되었습니다.', "success"));
+        } else if(res.status === 400) {
+          throw new Error(res.error); 
+        }
+      } catch (error) {
+        dispatch({type: types.ADD_USER_COUPONS_FAIL, payload: error.error});
+        dispatch(commonUiActions.showToastMessage('쿠폰 발급에 실패하였습니다.', "error"));
+      }
+  }
+
+  const useCoupon = (type) => async (dispatch) => {
+    try {
+      dispatch({type: types.USE_COUPON_REQUEST});
+      const res = await api.post("/order/coupon", { type });
+      if (res.status === 200) {
+        dispatch({type: types.USE_COUPON_SUCCESS});
+        dispatch({type: types.UPDATE_USER_AFTER_USE_COUPON, payload: res.data.user});
+      } else if(res.status === 400) {
+        throw new Error(res.error); 
+      }
+    } catch (error) {
+      dispatch({type: types.USE_COUPON_FAIL, payload: error.error});
+      dispatch(commonUiActions.showToastMessage(error, "error"));
+    }
+  };
+  
 export const userActions = {
   loginWithToken,
   loginWithEmail,
   logout,
   loginWithGoogle,
   registerUser,
-  clearError
+  clearError,
+  addCoupons,
+  useCoupon
 };

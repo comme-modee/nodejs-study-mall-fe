@@ -30,18 +30,14 @@ const getCartList = () => async (dispatch) => {
     const res = await api.get('/cart');
     if(res.status === 200) {
       dispatch({type: types.GET_CART_LIST_SUCCESS, payload: res.data.data});
-      console.log(res.data.data)
     } else if(res.status === 400) {
       throw new Error('카트 리스트를 불러오지 못했습니다.')
     }
   } catch (error) {
-    console.log('eee',error)
     dispatch({type: types.GET_CART_LIST_FAIL, payload: error});
     if(error.error === 'Invalid token') {
       dispatch(commonUiActions.showToastMessage('로그인을 해주세요.', 'error'));
-    } else {
-      dispatch(commonUiActions.showToastMessage(error.error, 'error'));
-    }
+    } 
   }
 };
 
@@ -98,23 +94,10 @@ const getCartQty = () => async (dispatch) => {
   }
 };
 
-const useCoupon = (type) => async (dispatch) => {
-  try {
-    const res = await api.post("/cart/coupon", { type });
-    if (res.status === 200) {
-    } else if(res.status === 400) {
-      throw new Error(res.error); 
-    }
-  } catch (error) {
-    dispatch(commonUiActions.showToastMessage(error, "error"));
-  }
-};
-
 export const cartActions = {
   addToCart,
   getCartList,
   deleteCartItem,
   updateQty,
   getCartQty,
-  useCoupon
 };

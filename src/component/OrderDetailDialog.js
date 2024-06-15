@@ -30,7 +30,7 @@ const OrderDetailDialog = ({ open, handleClose, searchQuery }) => {
       <Modal.Body>
         <p><strong>예약번호:</strong> {selectedOrder.orderNum}</p>
         <p><strong>주문날짜:</strong> {selectedOrder.createdAt.slice(0, 10)}</p>
-        <p><strong>이메일:</strong> {selectedOrder.userId.email}</p>
+        <p><strong>이메일:</strong> {selectedOrder.userId?.email}</p>
         <p>
           <strong>주소:</strong> {selectedOrder.shipTo.address + " " + selectedOrder.shipTo.city}
         </p>

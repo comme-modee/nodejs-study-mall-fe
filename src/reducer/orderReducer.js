@@ -8,7 +8,8 @@ const initialState = {
   orderDetailInfo: null,
   adminOrderList: [],
   totalPage: 0,
-  selectedOrder: null
+  selectedOrder: null,
+  selectedCoupon: null
 };
 
 function orderReducer(state = initialState, action) {
@@ -37,6 +38,9 @@ function orderReducer(state = initialState, action) {
     case types.GET_ORDER_DETAIL_INFO_FAIL:
     case types.GET_ORDER_LIST_FAIL:
       return {...state, loading: false, error: payload}
+
+    case types.SET_SELECTED_COUPON:
+      return { ...state, selectedCoupon: payload }
 
     default:
       return state;

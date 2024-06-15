@@ -11,8 +11,7 @@ const initialState = {
   error: '',
   cartItemQty: 0,
   cartList: [],
-  totalPrice: 0,
-  selectedCoupon: null
+  totalPrice: 0
 };
 
 function cartReducer(state = initialState, action) {
@@ -44,10 +43,7 @@ function cartReducer(state = initialState, action) {
           (total, item) => (total += item.productId.price * item.qty),
           0
         ),
-      };
-
-    case types.SET_SELECTED_COUPON:
-      return { ...state, selectedCoupon: payload }
+      }
 
     case types.GET_CART_LIST_SUCCESS:
       return {
