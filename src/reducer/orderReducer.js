@@ -9,7 +9,8 @@ const initialState = {
   adminOrderList: [],
   totalPage: 0,
   selectedOrder: null,
-  selectedCoupon: null
+  selectedCoupon: null,
+  usedReward: null
 };
 
 function orderReducer(state = initialState, action) {
@@ -41,6 +42,8 @@ function orderReducer(state = initialState, action) {
 
     case types.SET_SELECTED_COUPON:
       return { ...state, selectedCoupon: payload }
+    case types.SET_USE_REWARD:
+      return { ...state, usedReward: payload }
 
     default:
       return state;

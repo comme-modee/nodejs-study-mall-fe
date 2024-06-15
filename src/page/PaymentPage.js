@@ -22,7 +22,7 @@ const PaymentPage = () => {
   });
   const { user } = useSelector((state) => state.user);
   const { cartList, totalPrice } = useSelector((state) => state.cart);
-  const { selectedCoupon } = useSelector((state) => state.order);
+  const { selectedCoupon, usedReward } = useSelector((state) => state.order);
   const navigate = useNavigate();
   const [firstLoading, setFirstLoading] = useState(true);
   const [ totalPriceWithCoupon, setTotalPriceWithCoupon ] = useState(null);
@@ -40,10 +40,30 @@ const PaymentPage = () => {
     navigate('/login')
   }
 
-  const discountWithCoupon = (type, totalPrice) => {
+  const discountWithCouponAndReward = (couponType, reward, totalPrice) => {
+      let discountPrice = null;
+
+      switch (couponType) {
+        case 'c1':
+            discountPrice = (totalPrice - 3000) - reward;
+            break;
+        case 'c2':
+            discountPrice = (totalPrice * 0.9) - reward;
+            break;
+        case 'c3':
+            discountPrice = (totalPrice * 0.85) - reward;
+            break;
+        default:
+            discountPrice = totalPrice; // 쿠폰 타입이 잘못된 경우 할인 없이 기존 가격 유지
+            break;
+      }
+      return setTotalPriceWithCoupon(discountPrice);
+  }
+
+  const discountWithCoupon = (couponType, totalPrice) => {
     let discountPrice = null;
 
-    switch (type) {
+    switch (couponType) {
       case 'c1':
           discountPrice = totalPrice - 3000;
           break;
@@ -61,12 +81,14 @@ const PaymentPage = () => {
 }
 
   useEffect(()=>{
-    discountWithCoupon(selectedCoupon, totalPrice)
-  },[selectedCoupon])
-
-  useEffect(()=>{
-    console.log('쿠폰적용후', totalPriceWithCoupon)
-  },[totalPriceWithCoupon])
+    if(selectedCoupon && usedReward) {
+      discountWithCouponAndReward(selectedCoupon, usedReward, totalPrice)
+    } else if(selectedCoupon && !usedReward) {
+      discountWithCoupon(selectedCoupon, totalPrice)
+    } else if(!selectedCoupon && usedReward) {
+      setTotalPriceWithCoupon(totalPrice - usedReward)
+    }
+  },[selectedCoupon, usedReward])
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -87,6 +109,7 @@ const PaymentPage = () => {
     };
     dispatch(orderActions.createOrder(data, navigate));
     dispatch(userActions.useCoupon(selectedCoupon));
+    dispatch(userActions.useReward(usedReward));
   };
 
   const handleFormChange = (event) => {

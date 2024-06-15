@@ -89,10 +89,9 @@ const registerUser =
   const useCoupon = (type) => async (dispatch) => {
     try {
       dispatch({type: types.USE_COUPON_REQUEST});
-      const res = await api.post("/order/coupon", { type });
+      const res = await api.post("/user/coupon", { type });
       if (res.status === 200) {
-        dispatch({type: types.USE_COUPON_SUCCESS});
-        dispatch({type: types.UPDATE_USER_AFTER_USE_COUPON, payload: res.data.user});
+        dispatch({type: types.USE_COUPON_SUCCESS, payload: res.data.user});
       } else if(res.status === 400) {
         throw new Error(res.error); 
       }
@@ -101,6 +100,20 @@ const registerUser =
       dispatch(commonUiActions.showToastMessage(error, "error"));
     }
   };
+
+  const useReward = (usedReward) => async (dispatch) => {
+      try {
+          dispatch({type: types.USE_REWARD_REQUEST});
+          const res = await api.post("/user/reward", {usedReward});
+          if (res.status === 200) {
+            dispatch({type: types.USE_REWARD_SUCCESS, payload: res.data.user});
+          } else if(res.status === 400) {
+            throw new Error(res.error); 
+          }
+      } catch (error) {
+        dispatch({type: types.USE_REWARD_FAIL, payload: error.error});
+      }
+  }
   
 export const userActions = {
   loginWithToken,
@@ -110,5 +123,6 @@ export const userActions = {
   registerUser,
   clearError,
   addCoupons,
-  useCoupon
+  useCoupon,
+  useReward
 };

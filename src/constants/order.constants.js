@@ -23,3 +23,4 @@ export const badgeBg = {
 };
 
 export const SET_SELECTED_COUPON = "SET_SELECTED_COUPON";
+export const SET_USE_REWARD= "SET_USE_REWARD";
